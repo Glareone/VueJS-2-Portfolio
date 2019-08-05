@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+
+<div id="app">
+    <h1 v-once>{{ title }}</h1>
+    <p>{{ sayHello() }} - <a v-bind:href="link">Google Link</a></p>
+    <hr>
+    <p>
+        We will see <a href="http://google.com">Google Link</a> as a text instead of rendered element.
+        Vue js escapes doing this
+    </p>
+
+    <p>blabla</p>
+    <p>{{ finishedLink }}</p>
+
+    <p>If you want to draw a component instead of showing element text - you could use another directive: v-html</p>
+    <p v-html="finishedLink"></p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'Hello World!',
+            link: 'http://google.com',
+            finishedLink: '<a href="http://google.com">Google Link</a>' // here is a complete anchor link
+        },
+        methods: {
+            sayHello: function() {
+                this.title = 'Hello!'; // reassign new variable to title
+                return this.title;
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+
+<div id="app">
+    <p>{{ sayHello() }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'Hello World!'
+        },
+        methods: {
+            sayHello: function(event) {
+                // "this" reference will be proxies by VueJS and it passes some properties from its data and methods directly under "this".
+                return this.title;
+            }
+        }
+    });
+</script>
+</body>
+</html>
