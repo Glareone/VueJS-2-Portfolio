@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+
+<div id="app">
+    <!--
+        pay attention on v-once directive
+        using this directive we could tell Vue to render this element (h1) only once and do not update it later
+        we will see "Hello World!" instead of "Hello!" because we block element updates
+     -->
+    <h1 v-once>{{ title }}</h1>
+    <p>{{ sayHello() }}<a v-bind:href="link">Google Link</a></p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'Hello World!',
+            link: 'http://google.com'
+        },
+        methods: {
+            sayHello: function() {
+                this.title = 'Hello!'; // reassign new variable to title
+                return this.title;
+            }
+        }
+    });
+</script>
+</body>
+</html>

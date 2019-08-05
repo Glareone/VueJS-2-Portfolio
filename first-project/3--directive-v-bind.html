@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+
+<div id="app">
+    <!--
+        Using vue js you can't apply href link directly into html code, but you can use bind function to do it
+        this function named "directive" like in Angular
+
+        Directive is instruction which you place directly to the code
+    -->
+    <p><a v-bind:href="link">Google Link</a></p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            link: 'http://google.com'
+        },
+    });
+</script>
+</body>
+</html>
