@@ -2,18 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="vue.js"></script>
+    <script src="../vue.js"></script>
     <title>VueJS</title>
-
 </head>
 <body>
-
 <div id="app">
     <label for="input"></label>
     <input id="input" type="text" v-on:input="changeTitle">
     <p>{{ title }}</p>
 </div>
-
 <script>
     new Vue({
         el: '#app',

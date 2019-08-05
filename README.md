@@ -1,2 +1,2 @@
-Root Read me file for several VueJs projects.
-Will add information step by step.
+"First Lecture Block" is located in "first-lecture-block" folder and contains lectures from 1 to 16.
+"Second Lecture Block" is located in "second-lecture-block" folder and contains lectures from 1 to 17 to 21.

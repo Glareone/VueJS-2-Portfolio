@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="vue.js"></script>
+    <script src="../vue.js"></script>
     <title>VueJS</title>
-
 </head>
 <body>
-
 <div id="app">
     <!--
         pay attention on v-once directive
@@ -17,7 +15,6 @@
     <h1 v-once>{{ title }}</h1>
     <p>{{ sayHello() }}<a v-bind:href="link">Google Link</a></p>
 </div>
-
 <script>
     new Vue({
         el: '#app',

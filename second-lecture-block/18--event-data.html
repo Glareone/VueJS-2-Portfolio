@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+<div id="app">
+    <button v-on:click="increaseCounter">Counter me</button>
+    <p>{{ counter }}</p>
+    <!-- we subscribe on mousemove event -->
+    <p v-on:mousemove="updateCoordinates">Coordinates : {{ x }} / {{ y }}</p>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            increaseCounter: function() {
+                this.counter += 1;
+            },
+            updateCoordinates: function(event) {
+                this.x = event.clientX; // ClientX and ClientY are default properties of event object
+                this.y = event.clientY;
+            }
+        }
+    });
+</script>
+</body>
+</html>
