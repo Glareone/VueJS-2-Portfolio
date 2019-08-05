@@ -2,27 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="vue.js"></script>
+    <script src="../vue.js"></script>
     <title>VueJS</title>
 
 </head>
 <body>
 
 <div id="app">
-    <label for="input"></label>
-    <input id="input" type="text" v-on:input="changeTitle">
-    <p>{{ title }}</p>
+    <button v-on:click="increaseCounter">Counter me</button>
+    <p>{{ counter }}</p>
 </div>
 
 <script>
     new Vue({
         el: '#app',
         data: {
-            title: 'Hello World'
+            counter: 0
         },
         methods: {
-            changeTitle: function(event) {
-                this.title = event.target.value;
+            increaseCounter: function() {
+                this.counter += 1;
             }
         }
     });

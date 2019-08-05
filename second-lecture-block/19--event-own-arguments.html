@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+
+<div id="app">
+    <!--
+        Pay attention on 2 in parentheses, we pass our own parameter into the method.
+        Also we have access to the default event object using $ markup before event: $event
+     -->
+    <button v-on:click="increaseCounter(2, $event)">Counter me</button>
+    <p>{{ counter }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            // here we can use our own provided parameter
+            // also we could use default event object
+            increaseCounter: function(step, event) {
+                this.counter += step;
+            }
+        }
+    });
+</script>
+</body>
+</html>

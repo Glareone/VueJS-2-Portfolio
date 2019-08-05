@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+
+<div id="app">
+    <p v-on:mousemove="updateCoordinates">
+        Coordinates : {{ x }} / {{ y }}
+        <!--
+            Here we want to unsubscribe from mousemove event, we could simply use dummy function
+            We will use stopPropagation to do not let event propagate up to parents
+
+             <span v-on:mousemove="dummyFunction">DEAD SPOT</span>
+         -->
+
+        <!--
+            But we also have another option.
+            "stop" means stopPropagation.
+            This approach named intermediate function.
+            We also could use chaining here: v-on:mousemove.stop.somethingElse.andElse
+        -->
+        <span v-on:mousemove.stop="">DEAD SPOT</span>
+    </p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            x: 0,
+            y: 0
+        },
+        methods: {
+            updateCoordinates: function(event) {
+                this.x = event.clientX;
+                this.y = event.clientY;
+            },
+            dummyFunction: function(event) { // Solution for the first example
+                event.stopPropagation();
+            }
+        }
+    });
+</script>
+</body>
+</html>
