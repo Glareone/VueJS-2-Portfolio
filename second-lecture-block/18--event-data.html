@@ -7,14 +7,12 @@
 
 </head>
 <body>
-
 <div id="app">
     <button v-on:click="increaseCounter">Counter me</button>
     <p>{{ counter }}</p>
     <!-- we subscribe on mousemove event -->
     <p v-on:mousemove="updateCoordinates">Coordinates : {{ x }} / {{ y }}</p>
 </div>
-
 <script>
     new Vue({
         el: '#app',

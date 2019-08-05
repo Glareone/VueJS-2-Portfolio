@@ -7,7 +7,6 @@
 
 </head>
 <body>
-
 <div id="app">
     <h1 v-once>{{ title }}</h1>
     <p>{{ sayHello() }} - <a v-bind:href="link">Google Link</a></p>
@@ -23,7 +22,6 @@
     <p>If you want to draw a component instead of showing element text - you could use another directive: v-html</p>
     <p v-html="finishedLink"></p>
 </div>
-
 <script>
     new Vue({
         el: '#app',
