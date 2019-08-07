@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+<div id="app">
+    <!-- JS Code is here -->
+    <button v-on:click="counter++">Increase</button>
+    <button v-on:click="counter--">Decrease</button>
+    <!--
+        Second counter which increase another property.
+
+    -->
+    <button v-on:click="secondCounter++">Increase Second</button>
+    <p>{{ counter }} <-> {{ secondCounter }}</p>
+    <!-- We call not a property but a function -->
+    <p>Result: {{ result() }}</p>
+    <!--
+        BUT HERE we call output not like a function but like a property. Output is Computed value.
+
+        For computed properties VueJS analyze does it need to be re-rendered somewhere or not.
+        What does it mean? It means that if we click Increase or Decrease buttons - we will not only increase counter,
+        But also a recalculation of computed value. Why? Because we use this property in computed value calculation.
+        You could check it in console log
+
+        But we don't use secondCounter in computed values and that's why VueJS doesn't call output value-method and doesn't raise additional log in console.
+
+        USAGE:
+            use result() if you know that you don't want to cache the result and you want to recalculate again and again every time when DOM gets updated
+            in other cases better to use computed values
+     -->
+    <p>Result 2: {{ result() }} <-> {{ output }}</p>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            secondCounter: 0
+            // we can't use ternary operator here because data property doesn't allow it
+            // result: ''
+        },
+        // computed properties also allow us to store properties
+        // it looks the same as the method which described below
+        computed: {
+            output: function() {
+                console.log('computed property is called');
+                return this.secondCounter > 5 ? 'Greater than 5' : ' Smaller than 5';
+            }
+        },
+        methods: {
+            result : function() {
+               console.log('method is called');
+               return this.counter > 5 ? 'Greater than 5' : ' Smaller than 5'
+            }
+        }
+    });
+</script>
+</body>
+</html>

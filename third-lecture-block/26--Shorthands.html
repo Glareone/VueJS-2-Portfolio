@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+<div id="app">
+    <button v-on:click="changeLink">Click to Change Link</button>
+    <!-- @ equals to v-on -->
+    <button @click="changeLink">Another button with shortcut: Click to Change Link</button>
+    <hr>
+    <a v-bind:href="link">Link with using v-bind</a>
+    <a :href="link">Link with using :</a>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            link: 'https://google.com'
+        },
+        methods: {
+            changeLink: function() {
+                this.link = 'http://apple.com';
+            }
+        }
+    });
+</script>
+</body>
+</html>
