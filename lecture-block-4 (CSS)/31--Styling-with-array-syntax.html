@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+    <style>
+        .demo { width: 100px; height: 100px; background-color: gray; display: inline-block; margin: 10px; }
+        .red { background-color: red; }
+        .green { background-color: green; }
+        .blue { background-color: blue; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <label for="color">Color:</label>
+    <input id="color" type="text" v-model="color">
+    <label for="width">Width:</label>
+    <input id="width" type="text" v-model="width">
+    <!--
+        using inline styles. You can't use single quotes here. Use camelCase like in React.
+
+        Important note!
+        VueJS automatically should add autoprefixes for all browsers support vueJS
+     -->
+    <div class="demo" :style="{ backgroundColor: color }"></div>
+    <div class="demo" :style="myStyle"></div>
+    <!-- using array in inline styles -->
+    <div class="demo" :style="[myStyle, {height: width + 'px'}]"></div>
+    <div>Possible Values: red, green, blue</div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            color: 'gray',
+            width: 100
+        },
+        computed: {
+            myStyle: function () {
+                return {
+                    backgroundColor: this.color,
+                    width: this.width + 'px'
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
