@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="../../vue.js"></script>
+  <title>VueJS</title>
+  <style>
+    #effect {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+    }
+    .highlight {
+      background-color: red;
+      width: 200px !important;
+    }
+    .shrink {
+      background-color: gray;
+      width: 50px !important;
+    }
+
+    .secondElement {
+      height: 30px;
+      width: 30px;
+      border: 1px solid orangered;
+      border-radius: 50%;
+    }
+
+    .pulse {
+      animation: changeColor 2s infinite;
+    }
+
+    @keyframes changeColor {
+      from {background-color: bisque;}
+      to {background-color: chartreuse;}
+    }
+    .thirdElement--modifier1 {
+      height: 40px;
+      width: 40px;
+      background-color: chartreuse;
+      border: 1px solid aquamarine;
+      margin: 5px;
+    }
+    .thirdElement--modifier2 {
+      height: 40px;
+      width: 40px;
+      background-color: bisque;
+      border: 1px solid orange;
+      border-radius: 50%;
+      margin: 5px;
+    }
+    .fifthElement {
+      height: 30px;
+      width: 30px;
+      background-color: deepskyblue;
+      border: 1px solid fuchsia;
+      border-radius: 50%;
+      margin: 5px;
+    }
+
+  </style>
+</head>
+<body>
+<div id="exercise4">
+  <!--
+    1) Start the Effect with the Button.
+    The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below)
+  -->
+  <div>
+    <button @click="isEffectShown = !isEffectShown">Toggle Effect</button>
+    <div id="effect" :class="effectClass"></div>
+  </div>
+
+  <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+  <div :class="[{secondElement: isEffectShown}, {pulse: isEffectShown}]"></div>
+
+  <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+  <div style="margin:20px 0 20px 0; border: 1px solid gray;">
+    <label for="thirdExInput" style="display: block; margin-bottom: 5px;">Put your class here. Possible values: thirdElement--modifier1, thirdElement--modifier2</label>
+    <input id="thirdExInput" type="text" v-model="secondElementSelectedClass">
+    <div :class="secondElementSelectedClass"></div>
+  </div>
+
+  <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+  <div style="margin:20px 0 20px 0; border: 1px solid gray;">
+    <label for="fourthExInput1" style="display: block; margin-bottom: 5px;">
+      Put your class here. Possible values: thirdElement--modifier1, thirdElement--modifier2
+    </label>
+    <input id="fourthExInput1" type="text" v-model="thirdElementSelectedClass">
+    <label for="fourthExInput2" style="display: block; margin-bottom: 5px;">Put here true or false.</label>
+    <input id="fourthExInput2" type="text" v-model="isThirdElementSecondClassSelected">
+    <div :class="[thirdElementSelectedClass, {'thirdElement--modifier2': !!isThirdElementSecondClassSelected && isThirdElementSecondClassSelected !== 'false'}]"></div>
+  </div>
+
+  <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+  <div>
+    <label for="fifthExInput" style="display: block; margin-bottom: 5px;">
+      Put here your background-color variable: For example #eee, red, blue or anything else. Blank field will make figure black
+    </label>
+    <input id="fifthExInput" type="text" v-model="fifthInputValue">
+    <div class="fifthElement" :style="fifthElementStyle"></div>
+  </div>
+  
+  <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+  <div>
+    <button @click="isProgressStarted = !isProgressStarted">Toggle Progress</button>
+    <progress max="100" :value="progressBarValue"></progress>
+  </div>
+</div>
+<script>
+  new Vue({
+    el: '#exercise4',
+    data: {
+      isEffectShown: false,
+      isProgressStarted: false,
+      effectIntervalId: 0,
+      progressbarIntervalId: 0,
+      effectClass: '',
+      secondElementSelectedClass: '',
+      thirdElementSelectedClass: '',
+      isThirdElementSecondClassSelected: 'false',
+      fifthInputValue: '',
+      progressBarValue: 0,
+    },
+    computed: {
+      fifthElementStyle: function (value) {
+        return {
+          backgroundColor: this.fifthInputValue || 'black'
+        };
+      }
+    },
+    watch: {
+      isEffectShown: function (value) {
+        if(value) {
+          this.effectIntervalId = setInterval(() => this.updateEffectClass(), 500);
+          return;
+        }
+        clearInterval(this.effectIntervalId);
+        this.effectClass = '';
+      },
+      isProgressStarted: function(value) {
+        if(value) {
+          this.progressbarIntervalId = setInterval(() => this.progressBarEffect(), 100);
+          return;
+        }
+        clearInterval(this.progressbarIntervalId);
+        this.effectClass = '';
+      }
+    },
+    methods: {
+      updateEffectClass: function() {
+        this.effectClass = this.effectClass === 'highlight' ? 'shrink' : 'highlight';
+      },
+      progressBarEffect: function() {
+        this.progressBarValue = this.progressBarValue < 100 ? this.progressBarValue + 5 : 0;
+      }
+    }
+  });
+
+</script>
+</body>
+</html>

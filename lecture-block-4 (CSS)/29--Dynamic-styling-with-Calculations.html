@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+    <style>
+        .demo { width: 100px; height: 100px; background-color: gray; display: inline-block; margin: 10px; }
+        div.red { background-color: red; }
+        .green { background-color: green; }
+        div.demo.blue { background-color: blue; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--
+        class name will be set directly from input box.
+        also you can use multiple assessment in :class using [].
+        this list works on another manner than classNames. It merge all styles in list.
+        if we have color: green and isAttachedRed is true - color will be green.
+        "red" color will not override already existed "color" (if it's existed(red, blue or green))
+
+        PAY attention: red has weight more ( 0 0 1 1) vs "color" (equals green, 0 0 1 0). "div.red" selector, blue has "div.demo.blue" ( 0 0 2 0)
+    -->
+    <input type="text" v-model="color">
+    <div class="demo" :class="color"></div>
+    <div class="demo" :class="[color, 'red']"></div>
+    <div class="demo" :class="[color, {red: isAttachedRed }]"></div>
+    <div>Possible Values: red, green, blue</div>
+    <div>"green" selector (0 0 1 0), "div.red" selector (0 0 1 1), blue has "div.demo.blue" ( 0 0 2 0)</div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            isAttachedRed: true,
+            color: 'green',
+            colors: {
+                green: true,
+                red: true,
+            }
+        }
+    });
+</script>
+</body>
+</html>

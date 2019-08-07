@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+    <style>
+        .demo { width: 100px; height: 100px; background-color: gray; display: inline-block; margin: 10px; }
+        .red { background-color: red; }
+        .green { background-color: green; }
+        .blue { background-color: blue; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- Right now all classes are based on computed value named divClasses -->
+    <div
+        class="demo"
+        @click="isAttachedRed = !isAttachedRed"
+        :class="divClasses"
+    >
+    </div>
+    <div class="demo" :class="divClasses"></div>
+    <div class="demo" :class="divClasses"></div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            isAttachedRed: false
+        },
+        computed: {
+            divClasses: function() {
+                // will return js object
+                return {
+                    red: this.isAttachedRed,
+                    blue: !this.isAttachedRed
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
