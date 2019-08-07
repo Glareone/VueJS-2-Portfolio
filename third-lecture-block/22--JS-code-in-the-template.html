@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+<div id="app">
+    <!-- JS Code is here -->
+    <button v-on:click="counter++">Counter me</button>
+    <!--
+        Also you could use JS here, simple functions without if clauses.
+        But you could use ternary operator
+         -->
+    <p>{{ counter * 2 }}</p>
+    <p>{{ counter * 2 > 10 ? 'Greater than 10' : 'Smaller than 10' }}</p>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0
+        }
+    });
+</script>
+</body>
+</html>

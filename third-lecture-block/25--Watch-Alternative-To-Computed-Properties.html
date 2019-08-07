@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+
+</head>
+<body>
+<div id="app">
+    <!-- JS Code is here -->
+    <button v-on:click="counter++">Increase</button>
+    <button v-on:click="counter--">Decrease</button>
+    <!--
+        Second counter which increase another property.
+
+    -->
+    <button v-on:click="secondCounter++">Increase Second</button>
+    <p>Counter: {{ counter }} <-> Second Counter: {{ secondCounter }}</p>
+    <!-- We call not a property but a function -->
+    <p>Result: {{ result() }}</p>
+    <!--
+        See all description in previous (24) lecture block
+     -->
+    <p>Result 2: {{ result() }} <-> {{ output }}</p>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            secondCounter: 0
+        },
+        // computed properties also allow us to store properties
+        computed: {
+            output: function() {
+                console.log('computed property is called');
+                return this.secondCounter > 5 ? 'Greater than 5' : ' Smaller than 5';
+            }
+        },
+        // Watch Object is an alternative to computed values
+        // we watch for any changes on "counter" property
+        // PAY ATTENTION:
+        // 1. Watch is better than computed because it is more optimized, avoiding unnecessary tasks
+        // 2. Computed values should be ran synchronously. Any changes should be shown immediately. You can't do any server call or async tasks between calculation.
+        // 3. You also couldn't use setTimeout in computed values, only in watched values.
+
+        // In Watch you shouldn't return a property which should be recalculated, you can pass here any code.
+        watch: {
+            // here we could store the logic how property should be computed
+            // we will demonstrate it on counter property
+            // value is an automatically passes updated value from VueJS
+            counter: function(value) {
+                const vm = this; // we need to create a reference on this because function makes a new closure.
+                setTimeout(function() {
+                    vm.counter = 0;
+                }, 2000);
+            }
+        },
+        methods: {
+            result : function() {
+               console.log('method is called');
+               return this.counter > 5 ? 'Greater than 5' : ' Smaller than 5'
+            }
+        }
+    });
+</script>
+</body>
+</html>
