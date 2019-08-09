@@ -19,7 +19,7 @@ new Vue({
     playerHealth: 100,
     monsterHealth: 100,
     isGameRunning: false,
-
+    turns: [],
   },
   watch: {
     playerHealth: function() {
@@ -47,6 +47,7 @@ new Vue({
   methods: {
     startGame: function() {
       this.isGameRunning = true;
+      this.turns = [];
       this.playerHealth = defaultPlayerHealth;
       this.monsterHealth = defaultMonsterHealth;
     },
@@ -54,17 +55,24 @@ new Vue({
       const currentPlayerAttack = this.calculateDamage(minimumPlayerDamageDealt, maximumPlayerDamageDealt);
       this.monsterHealth -= currentPlayerAttack;
 
+      // unshift means push to the first element, not to last
+      this.turns.unshift({ isPlayer: true, text: `Player hits monster for ${currentPlayerAttack}`});
+
       this.monsterAttack();
     },
     specialAttack: function() {
       const currentPlayerAttack = this.calculateDamage(minimumPlayerSpecialAttackDamageDealt, maximumPlayerSpecialAttackDamageDealt);
       this.monsterHealth -= currentPlayerAttack;
 
+      this.turns.unshift({ isPlayer: true, text: `Player hits monster with special attack for ${currentPlayerAttack}`});
+
       this.monsterAttack();
     },
     heal: function() {
       const currentHeal =  this.calculateDamage(minimumPlayerHealDealt, maximumPlayerHealDealt);
       this.playerHealth = this.playerHealth + currentHeal < 100 ? this.playerHealth + currentHeal : 100;
+
+      this.turns.unshift({ isPlayer: true, text: `Player heals for ${currentHeal}`});
 
       this.monsterAttack();
     },
@@ -74,6 +82,8 @@ new Vue({
     monsterAttack: function() {
       const currentMonsterAttack =  this.calculateDamage(minimumMonsterDamageDealt, maximumMonsterDamageDealt);
       this.playerHealth -= currentMonsterAttack;
+
+      this.turns.unshift({ isPlayer: false, text: `Monster hits player for ${currentMonsterAttack}`});
     },
     calculateDamage: function(min, max) {
       return Math.max(Math.floor(Math.random() * max) + 1, min);

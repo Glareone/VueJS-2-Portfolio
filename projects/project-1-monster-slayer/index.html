@@ -11,26 +11,26 @@
     <section class="row">
         <div class="small-6 columns">
             <h1 class="text-center">YOU</h1>
-            <div class="healthbar">
+            <div class="health-bar">
                 <!-- pay attention on :style here and how % is used-->
                 <div
-                    class="healthbar text-center"
+                    class="health-bar"
                     style="background-color: green; margin: 0; color: white;"
-                    :style="{width: playerHealth + '%' }"
+                    :style="{width: playerHealth > 0 ? playerHealth + '%' : 0 }"
                 >
-                    {{ playerHealth }}
+                    <span>{{ playerHealth }}</span>
                 </div>
             </div>
         </div>
         <div class="small-6 columns">
             <h1 class="text-center">MONSTER</h1>
-            <div class="healthbar">
+            <div class="health-bar">
                 <div
-                    class="healthbar text-center"
+                    class="health-bar"
                     style="background-color: green; margin: 0; color: white;"
-                    :style="{width: monsterHealth + '%' }"
+                    :style="{width: monsterHealth > 0 ? monsterHealth + '%' : 0 }"
                 >
-                    {{ monsterHealth }}
+                    <span>{{ monsterHealth }}</span>
                 </div>
             </div>
         </div>
@@ -53,11 +53,15 @@
             <button id="give-up" @click="giveUp">GIVE UP</button>
         </div>
     </section>
-    <section class="row log">
+    <!-- show log if the length > 0 -->
+    <section class="row log" v-if="turns.length">
         <div class="small-12 columns">
             <ul>
-                <li>
-
+                <li
+                    v-for="turn in turns"
+                    :class="{ 'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer }"
+                >
+                    {{  turn.text }}
                 </li>
             </ul>
         </div>
