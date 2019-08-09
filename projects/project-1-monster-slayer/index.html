@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="../../vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="health-bar">
+                <!-- pay attention on :style here and how % is used-->
+                <div
+                    class="health-bar"
+                    style="background-color: green; margin: 0; color: white;"
+                    :style="{width: playerHealth > 0 ? playerHealth + '%' : 0 }"
+                >
+                    <span>{{ playerHealth }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="health-bar">
+                <div
+                    class="health-bar"
+                    style="background-color: green; margin: 0; color: white;"
+                    :style="{width: monsterHealth > 0 ? monsterHealth + '%' : 0 }"
+                >
+                    <span>{{ monsterHealth }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls" v-if="!isGameRunning">
+        <div class="small-12 columns">
+            <button id="start-game" @click="startGame">START NEW GAME</button>
+        </div>
+    </section>
+    <!--
+        v-else here works with previous v-if.
+        we can't use v-else on the different type of block which is used for v-if.
+        if v-if is attached to section - v-else also should be attached to v-else too!
+     -->
+    <section class="row controls" v-else>
+        <div class="small-12 columns">
+            <button id="attack" @click="attack">ATTACK</button>
+            <button id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
+            <button id="heal" @click="heal">HEAL</button>
+            <button id="give-up" @click="giveUp">GIVE UP</button>
+        </div>
+    </section>
+    <!-- show log if the length > 0 -->
+    <section class="row log" v-if="turns.length">
+        <div class="small-12 columns">
+            <ul>
+                <li
+                    v-for="turn in turns"
+                    :class="{ 'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer }"
+                >
+                    {{  turn.text }}
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
