@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app">
+    <p v-if="show">You can see me!</p>
+    <!-- v-else condition is true when its previous v-if condition is false. Just a shortcut of v-if with absolutely opposite condition -->
+    <p v-else>Now you see me!!</p>
+
+    <!--
+        html 5 tag which isn't rendered in the dom. Could be used like postponed rendered element which will be used via javascript
+        We will see in the DOM only paragraph with "Inside template" sign, but not template element.
+
+        We could use template to group multiple elements and put v-if condition directly on template element (div element could raise some side effects, for example)
+     -->
+    <template v-if="show">
+        <h3>Heading</h3>
+        <p>Inside template</p>
+    </template>
+    <p>Do you also see me?</p>
+    <button @click="show = !show">Switch</button>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            show: true
+        }
+    });
+</script>
+</body>
+</html>

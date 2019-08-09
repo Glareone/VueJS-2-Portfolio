@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app">
+    <p v-if="show">You can see me!</p>
+    <!-- v-else condition is true when its previous v-if condition is false. Just a shortcut of v-if with absolutely opposite condition -->
+    <p>Something else</p>
+    <!--
+        the main difference from v-if is based on how it works.
+        it uses display:none to hide this blocks instead of v-if which deletes element from DOM entirely.
+        IT'S NOT A DETACH FROM DOM.
+    -->
+    <p v-show="show">Do you also see me?</p>
+    <button @click="show = !show">Switch</button>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            show: true
+        }
+    });
+</script>
+</body>
+</html>

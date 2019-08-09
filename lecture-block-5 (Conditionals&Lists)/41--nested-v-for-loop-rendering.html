@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <!--
+            v-for will reduplicate this element.
+         -->
+        <li v-for="(human, index) in persons">
+            <!-- key will display "name", "age", "color", index - number of parameter in particular human -->
+            <div v-for="(parameter, key, index) in human">{{ key }} = {{ parameter }}, index = {{ index}}</div>
+        </li>
+    </ul>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            ingredients: ['meat', 'fruit', 'cookies'],
+            persons: [
+                { name: 'Max', age: 20, color: 'red' },
+                { name: 'Ann', age: 'unknown', color: 'blue' }
+            ]
+        }
+    });
+</script>
+</body>
+</html>

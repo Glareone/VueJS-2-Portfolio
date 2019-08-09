@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app">
+    <template v-for="(ingredient, index) in ingredients" :key="ingredient">
+        <p> {{ ingredient }}, index: {{ index }}</p>
+    </template>
+    <!--
+        ABOUT CHANGES STRATEGY "BY DEFAULT" AND "AT THE PLACE": https://ru.vuejs.org/v2/guide/list.html
+
+        we will add a new element to our array. Array reference doesn't change, but the length of this array will be changed
+        VueJS automatically tracks these changes for us.
+
+
+        PAY ATTENTION:
+        seems like we can't add key to this list because this list contains only simple elements (value type).
+        and any changes directly in elements will not be tracked and will not raise re-render.
+
+        vm.items[1] = 'x' // NON REACTIVE
+        vm.items.length = 2 // NON REACTIVE
+
+        USE:
+        // Vue.set
+        Vue.set(vm.items, indexOfItem, newValue)
+        // Array.prototype.splice
+        vm.items.splice(indexOfItem, 1, newValue)
+
+        But this trick works in example below.
+    -->
+    <button @click="ingredients.push('spices')">Add new element to ingredients</button>
+    <!-- meat will be banana, but will not be tracked by VueJS -->
+    <button @click="ingredients[0] = 'banana'">Replace meat with banana</button>
+
+    <template v-for="(person, index) in persons" :key="person.id">
+        <p> {{ person.name }}, index: {{ index }}</p>
+    </template>
+    <!--
+        Also, we could change any of element in array and we also will see this changes. But we need to add a unique key to our elements.
+        To do this - we need to use v-bind syntax (v-bind:key) or shorthand ":key".
+        We could use index from this array (:key="index"), but it will be a little bit tricky as in React. Better to use a real unique key.
+        Here it will be an ingredient.
+        With this changes VueJS not only stores the position of this element, but element itself.
+
+        If your list is never changed during the lifetime of your component, or you only append items, you don’t need a key.
+    -->
+    <button @click="persons[0].name = 'New Max!!'">Replace the Meat!</button>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            ingredients: ['meat', 'fruit', 'cookies'],
+            persons: [
+                { id:'1', name: 'Max', age: 20, color: 'red' },
+                { id:'2', name: 'Ann', age: 'unknown', color: 'blue' }
+            ]
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app">
+    <span v-for="n in 10"> {{ n }}</span>
+    <hr>
+    <span v-for="n in ingredients.length"> {{ n }}</span>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            ingredients: ['meat', 'fruit', 'cookies'],
+            persons: [
+                { name: 'Max', age: 20, color: 'red' },
+                { name: 'Ann', age: 'unknown', color: 'blue' }
+            ]
+        }
+    });
+</script>
+</body>
+</html>
