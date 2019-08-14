@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app1">
+    <h1 ref="heading">{{ title }}</h1>
+    <!--
+        here we added ref to our button and we could use it from vueJS code using $refs sign. Take a look on show method.
+    -->
+    <button @click="show" ref="myButton">Show Paragraph</button>
+    <p v-if="showParagraph">This is now always visible</p>
+    <p>{{ lowercaseTitle }}</p>
+</div>
+<script>
+  const vm1 = new Vue({
+    el: '#app1',
+    data: {
+      showParagraph: false,
+      title: 'The Vue JS Instance'
+    },
+    methods: {
+      show: function() {
+        this.showParagraph = true;
+        this.updateTitle('The VueJS Instance (Updated)');
+
+        // Here you could find all refs which was created and set up to vm1 instance.
+        //console.log(this.$refs);
+        //console.log(this.$refs.button); Button will be a normal html element in vanilla javascript notation.
+
+        // Here we will change our button text using its ref.
+        this.$refs.myButton.innerText = 'Inner text was changed via using $refs';
+      },
+      updateTitle: function(title) {
+        this.title = title;
+      }
+    },
+    computed: {
+      lowercaseTitle: function() {
+        return this.title.toLocaleLowerCase();
+      }
+    },
+    watch: {
+      title: function(value) {
+        alert(`Title changed, new value: ${ value }`);
+      }
+    }
+  });
+
+  // The inner text in h1 element will be changed after 1 second.
+
+  // BUT PAY ATTENTION.
+  // YOU SHOULDN'T MUTATE YOUR PROPS USING THIS MANNER Until it's urgent. because you can't control your reactive components by updating title from data.
+  // THIS IS NOT REACTIVE WAY
+  // Github issue: github.com/vuejs/vue/issues/7803
+
+  // After DOM changes this h1 element will not change its text until moment when title will be updated.
+  // I will add examples below
+  setTimeout(() => { vm1.$refs.heading.innerText = 'h1 was changed from vanilla js code using refs'; }, 1000);
+
+  // H1 will not be changed.
+  setTimeout(() => { vm1.showParagraph = true;}, 2000);
+  // H1 will not be changed too
+  setTimeout(() => { vm1.title = 'Changed from vanilla code after 3 sec';}, 3000);
+  //setTimeout(() => { vm1.$data.title = 'Changed from vanilla code after 3 sec';}, 3000);
+
+  // Will not be changed too
+  setTimeout(() => { vm1.show();}, 4000);
+
+</script>
+</body>
+</html>

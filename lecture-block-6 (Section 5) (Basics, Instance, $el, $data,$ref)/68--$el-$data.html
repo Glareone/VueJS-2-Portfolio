@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app1">
+    <h1>{{ title }}</h1>
+    <button @click="show">Show Paragraph</button>
+    <p v-if="showParagraph">This is now always visible</p>
+    <p>{{ lowercaseTitle }}</p>
+</div>
+<script>
+  // we declare a variable for storing vuejs instance
+  // pay attention how we declare data for vueJS data. it is an object.
+  // if we check is this data equal to vm1.$data - we will get true.
+
+  // PAY ATTENTION:
+  // We also could populate VueJS instance properties after creation. It is not necessary to create all props inside new Vue({ }) declaration.
+  const data = {
+    showParagraph: false,
+    title: 'The Vue JS Instance'
+  };
+
+  const vm1 = new Vue({
+    el: '#app1',
+    data: data,
+    methods: {
+      show: function() {
+        this.showParagraph = true;
+        this.updateTitle('The VueJS Instance (Updated)');
+      },
+      updateTitle: function(title) {
+        this.title = title;
+      }
+    },
+    computed: {
+      lowercaseTitle: function() {
+        return this.title.toLocaleLowerCase();
+      }
+    },
+    watch: {
+      title: function(value) {
+        alert(`Title changed, new value: ${ value }`);
+      }
+    }
+  });
+
+  // Two types of access. We could use $data property to access to any of vm1 vueJS instance data block properties.
+  // pay attention, only from data block
+  console.log(vm1.title);
+  console.log(vm1.$data.title);
+
+  // if we check is this data equal to vm1.$data - will be true.
+  console.log(`check is data equal to $data by reference: ${ data === vm1.$data }`);
+
+</script>
+</body>
+</html>

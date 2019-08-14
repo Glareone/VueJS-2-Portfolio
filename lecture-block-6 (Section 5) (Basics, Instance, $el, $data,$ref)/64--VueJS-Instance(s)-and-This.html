@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app1">
+    <h1>{{ title }}</h1>
+    <button @click="show">Show Paragraph</button>
+    <p v-if="showParagraph">This is now always visible</p>
+    <p>{{ lowercaseTitle }}</p>
+</div>
+<div id="app2">
+    <h1>{{ title }}</h1>
+    <button @click="onChange">Change Something in vuejs instance 2</button>
+</div>
+<script>
+  // we declare a variable for storing vuejs instance
+  const vm1 = new Vue({
+    el: '#app1',
+    data: {
+      showParagraph: false,
+      title: 'The Vue JS Instance'
+    },
+    methods: {
+      show: function() {
+        this.showParagraph = true;
+        this.updateTitle('The VueJS Instance (Updated)');
+      },
+      updateTitle: function(title) {
+        this.title = title;
+      }
+    },
+    computed: {
+      lowercaseTitle: function() {
+        return this.title.toLocaleLowerCase();
+      }
+    },
+    watch: {
+      title: function(value) {
+        alert(`Title changed, new value: ${ value }`);
+      }
+    }
+  });
+
+  // our timer which also changed vm1 title after 2 sec.
+  setTimeout(() => {vm1.title = 'vm1 changed by timer'}, 2000);
+
+  const vm2 = new Vue({
+    el: '#app2',
+    data: {
+      title: 'The second Vue JS Instance'
+    },
+    methods: {
+      onChange: function() {
+        // here we use vm1 variable
+        vm1.title = 'Changed from vueJS instance 2!';
+      }
+    },
+  });
+</script>
+</body>
+</html>

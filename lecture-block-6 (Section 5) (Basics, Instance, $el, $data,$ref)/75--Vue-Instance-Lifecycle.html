@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{ title }}</h1>
+    <button @click="title = 'Changed'">Update Title</button>
+    <button @click="destroy">Destroy!</button>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      title: 'original title'
+    },
+    beforeCreate: function() {
+      console.log('beforeCreate()');
+    },
+    created: function() {
+      console.log('created()');
+    },
+    beforeMount: function() {
+      console.log('beforeMount()');
+    },
+    mounted: function() {
+      console.log('mounted()');
+    },
+
+    // lifecycle after any update. Will be called by clicking on Update Title (but only once, because VDom isn't changed)
+    beforeUpdate: function() {
+      console.log('beforeUpdate()');
+    },
+    updated: function() {
+      console.log('updated()');
+    },
+
+    // lifecycle after destroying. Will be called also only once by clicking on the destroy button. Instance will be destroyed.
+    // Any buttons will no longer work.
+    // It will not remove everything from DOM, but removes all code from javascript logic, all events, watchers and so on.
+    beforeDestroy: function() {
+      console.log('beforeDestroy()');
+    },
+    destroyed: function() {
+      console.log('destroyed()');
+    },
+    methods: {
+      destroy: function() {
+        // call to destroy the instance. Will be called only once because instance is gone and no longer available.
+        this.$destroy();
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<!-- if we will use div with class "hello" and then reference el to .hello - it will also capture only first one -->
+<div class="hello"></div>
+<div class="hello"></div>
+<!-- it will replace the first one-->
+<hello></hello>
+<hello></hello>
+
+
+<div id="app1">
+    <h1>{{ title }}</h1>
+    <button @click="show">Show Paragraph</button>
+    <p v-if="showParagraph">This is now always visible</p>
+    <p>{{ lowercaseTitle }}</p>
+    <!--
+        Here is our component in app1 vuejs instance.
+        PAY ATTENTION: All Hello elements will be replaced with vuejs component with the proper element selector "hello".
+        There are some limitations using this template. - these limitations based on pre-compiled and compiled versions of VueJS
+        One version is prepared to work directly with browser, another one is JS instance.
+     -->
+    <hello></hello>
+    <hello></hello>
+</div>
+
+</div>
+<script>
+
+  const vm3 = new Vue({
+    el: 'hello',  // it means that it will try to replace any of hello elements with this template
+    template: '<h1>Hello, element!</h1>'
+  });
+
+  const vm4 = new Vue({
+    el: '.hello',  // it means that it will try to replace any of hello elements with this template
+    template: '<h1>Hello, class!</h1>'
+  });
+
+
+  // Let's create a component which could be reused in any vueJS instance
+  // first argument - selector, second - js object which is very similar with VueJS object but not at all.
+  Vue.component('hello', {
+    template: '<h1>Hello, Component!</h1>'
+  });
+
+  // our old vue model for app1, but we use inside #app1 hello element which will be replaced with component
+  const vm1 = new Vue({
+    el: '#app1',
+    data: {
+      showParagraph: false,
+      title: 'The Vue JS Instance'
+    },
+    methods: {
+      show: function() {
+        this.showParagraph = true;
+        this.updateTitle('The VueJS Instance (Updated)');
+      },
+      updateTitle: function(title) {
+        this.title = title;
+      }
+    },
+    computed: {
+      lowercaseTitle: function() {
+        return this.title.toLocaleLowerCase();
+      }
+    },
+    watch: {
+      title: function(value) {
+        alert(`Title changed, new value: ${ value }`);
+      }
+    }
+  });
+</script>
+</body>
+</html>
