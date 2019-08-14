@@ -43,7 +43,7 @@
     },
     watch: {
       title: function(value) {
-        alert(`Title changed, new value: ${value}`);
+        alert(`Title changed, new value: ${ value }`);
       }
     }
   });
@@ -54,7 +54,7 @@
   console.log(vm1.$data.title);
 
   // if we check is this data equal to vm1.$data - will be true.
-  console.log(`check is data equal to $data by reference: ${data === vm1.$data}`);
+  console.log(`check is data equal to $data by reference: ${ data === vm1.$data }`);
 
 </script>
 </body>
