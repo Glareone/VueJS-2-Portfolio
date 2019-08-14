@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+<div id="app1">
+    <h1>{{ title }}</h1>
+    <button @click="show">Show Paragraph</button>
+    <p v-if="showParagraph">This is now always visible</p>
+    <p>{{ lowercaseTitle }}</p>
+</div>
+<!-- we create a new empty div block and want to attach vuejs instance to it too-->
+<div id="app3">
+
+</div>
+<script>
+    // pay attention - we didn't mount vue js instance from the beginning (instantly in constructor).
+    // we do it later
+  const vm1 = new Vue({
+    // el: '#app1', we don't mount it here, we do it using $mount()
+    data: {
+      showParagraph: false,
+      title: 'The Vue JS Instance'
+    },
+    methods: {
+      show: function() {
+        this.showParagraph = true;
+        this.updateTitle('The VueJS Instance (Updated)');
+      },
+      updateTitle: function(title) {
+        this.title = title;
+      }
+    },
+    computed: {
+      lowercaseTitle: function() {
+        return this.title.toLocaleLowerCase();
+      }
+    },
+    watch: {
+      title: function(value) {
+        alert(`Title changed, new value: ${value}`);
+      }
+    }
+  });
+
+  // we mount our vuejs instance here to real html element as we did it earlier using "el" property.
+  vm1.$mount('#app1');
+
+  // here we describe how to use new property - template
+  // our template contains his own element h1 with hello.
+  const vm3 = new Vue({
+    template: '<h1>Hello!</h1>'
+  });
+
+  // after mounting we will see "hello!"
+  vm3.$mount('#app3');
+
+  // ALSO!
+  // we could append our element to DOM. will be our compiled template instance
+  // it is uncommon way
+  document.getElementById('app3').appendChild(vm3.$el);
+
+</script>
+</body>
+</html>
