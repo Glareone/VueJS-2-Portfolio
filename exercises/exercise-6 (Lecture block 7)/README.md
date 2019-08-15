@@ -1,6 +1,4 @@
-# vue-cli
-
-> A Vue.js project
+# Exercise 6: Refactor project structure from lecture block 7
 
 ## Build Setup
 
