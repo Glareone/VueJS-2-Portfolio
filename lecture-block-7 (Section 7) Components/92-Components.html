@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+
+<div id="app">
+    <!-- Two places where we would like to use our data from one source. We can't do it only using Vue instance like we do before and without component  -->
+    <my-component></my-component>
+    <hr>
+    <my-component></my-component>
+</div>
+
+<script>
+
+
+  Vue.component('my-component', {
+    // pay attention on this data. It is a function. We do so to wrap up status to prevent interfering with any other data.
+    // we have to do it on this manner if we would like to use this data in several places
+    data: function() {
+      return {
+        status: 'Critical'
+      }
+    },
+    template: '<p>Server Status: {{ status }}</p>'
+  });
+
+  const vm1 = new Vue({
+    el: '#app'
+  });
+</script>
+</body>
+</html>

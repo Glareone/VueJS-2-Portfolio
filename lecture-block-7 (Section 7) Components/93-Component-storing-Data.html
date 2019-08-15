@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+
+<div id="app">
+    <!-- Two places where we would like to use our data from one source. We can't do it only using Vue instance like we do before and without component  -->
+    <my-component></my-component>
+    <hr>
+    <my-component></my-component>
+</div>
+
+<script>
+  const data = { status: 'Critical '};
+
+  Vue.component('my-component', {
+    // pay attention on this data. It is a function. We do so to wrap up status to prevent interfering with any other data.
+    // we have to do it on this manner if we would like to use this data in several places
+
+    // BUT! If we return data object which was initialized before like this - we will return the same object in all places where we want
+    // It is a bad practise.
+    data: function() {
+      return data;
+
+      // this way is a proper way of using data. Creating a new object for every
+      // place where we use this component (new component instance)
+      return { status: 'Critical' };
+    },
+    methods: {
+      changeStatus: function() {
+        this.status = 'Normal';
+      }
+    },
+    // Pay attention on the button. We would like to change a status only in one place where we use component.
+    // But it will be changed everywhere because of returning one object.
+    template: '<p>Server Status: {{ status }} <button @click="changeStatus">Change</button></p>'
+  });
+
+  const vm1 = new Vue({
+    el: '#app'
+  });
+</script>
+</body>
+</html>

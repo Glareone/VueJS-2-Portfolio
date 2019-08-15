@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vue.js"></script>
+    <title>VueJS</title>
+</head>
+<body>
+
+<div id="app">
+    <my-component></my-component>
+    <hr>
+    <my-component></my-component>
+</div>
+
+<!--
+    We would like to use another component here but with the same selector.
+    To do so we need to change our component registration
+      -->
+<div id="app2">
+
+    <my-component></my-component>
+    <hr>
+    <my-component></my-component>
+</div>
+
+<script>
+  // If we could like to register component locally - we should use this way.
+  // we rework our component. now it is an object without selector.
+  // We will register it directly in vueJS instance for particular page block.
+  const component = {
+    data: function() {
+      return { status: 'Critical' };
+    },
+    methods: {
+      changeStatus: function() {
+        this.status = 'Normal';
+      }
+    },
+
+    template: '<p>Server Status: {{ status }} <button @click="changeStatus">Change</button></p>'
+  };
+
+  // To register component globally - we have to use this way (using Vue.component and selector inside constructor)
+  Vue.component('my-component2', {
+    data: function() {
+      return data;
+    },
+    methods: {
+      changeStatus: function() {
+        this.status = 'Normal';
+      }
+    },
+    template: '<p>Server Status: {{ status }} <button @click="changeStatus">Change</button></p>'
+  });
+
+  const vm1 = new Vue({
+    el: '#app',
+    // PAY ATTENTION
+    // Here is our component registration (local registration)
+    components: {
+      'my-component': component
+    }
+  });
+  const vm2 = new Vue({
+    el: '#app2',
+    // PAY ATTENTION
+    // Here is our component registration (local registration)
+    components: {
+      'my-component': component
+    }
+  });
+</script>
+</body>
+</html>
