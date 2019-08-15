@@ -27,7 +27,8 @@
   }
 </script>
 
-<style>
+<!-- scoped means that this styles are applied only for this component and not in the other places -->
+<style scoped>
     .page {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
