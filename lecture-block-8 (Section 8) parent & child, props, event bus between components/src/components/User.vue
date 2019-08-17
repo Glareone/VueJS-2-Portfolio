@@ -19,8 +19,15 @@
 
           Pay attention on nameWasReset. It is an emit event which will be called from the child.
           $event - is a default parameter
+
+          We bind here a rever function using : (v-bind) and use it in userDetail.
         -->
-        <app-user-detail :myName="myName" :sur-name="sur-name" @nameWasReset="myName = $event"/>
+        <app-user-detail
+            :myName="myName"
+            :sur-name="sur-name"
+            @nameWasReset="myName = $event"
+            :resetFunction="resetName"
+        />
       </div>
       <div class="col-xs-12 col-sm-6">
         <app-user-edit />
@@ -47,6 +54,9 @@
     methods: {
       changeName() {
         this.myName = 'Max'
+      },
+      resetName() {
+        this.myName = 'Default Name from reset Method in parent';
       }
     }
   }

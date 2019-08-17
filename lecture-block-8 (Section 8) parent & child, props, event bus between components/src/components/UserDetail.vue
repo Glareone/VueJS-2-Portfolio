@@ -3,9 +3,10 @@
     <h3>You may view the User Details here</h3>
     <p>Many Details</p>
     <p>User Name: {{ myName }}</p>
-    <p>User Name: {{ switchName() }}</p>
-    <p>User Name: {{ surName }}</p>
+    <p>User Name Reversed: {{ switchName() }}</p>
+    <p>User Surname (doesn't work): {{ surName }}</p>
     <button @click="resetName">Reset Name</button>
+    <button @click="resetFunction()">Reset Function From Parent</button>
   </div>
 </template>
 
@@ -30,7 +31,7 @@
       //   default: 'Name11' // optional parameter
       //   default: function() { return { name: 'Max' } } // another way how to write default parameter for Object or Array.
       // }
-
+      resetFunction: Function, // Function which was declared in Parent "User"
     },
     methods: {
       // this method also will be called after changing myName. And switchName() result will be up to date.
