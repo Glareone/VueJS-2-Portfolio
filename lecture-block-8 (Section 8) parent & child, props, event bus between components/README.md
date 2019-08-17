@@ -1,6 +1,7 @@
 # vue-cli
 
-> A Vue.js project
+> A Vue.js project for lecture block 8. 
+> Components and their interactions: props, child / parent, event bus.
 
 ## Build Setup
 
