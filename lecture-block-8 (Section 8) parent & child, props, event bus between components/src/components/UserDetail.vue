@@ -5,13 +5,15 @@
     <p>User Name: {{ myName }}</p>
     <p>User Name Reversed: {{ switchName() }}</p>
     <p>User Surname (doesn't work): {{ surName }}</p>
-    <p>User Age (From another sibling): {{ userAge }}</p>
+    <p>User Age (Will be edited from another sibling by event bus): {{ userAge }}</p>
     <button @click="resetName">Reset Name</button>
     <button @click="resetFunction()">Reset Function From Parent</button>
   </div>
 </template>
 
 <script>
+  import { eventBus } from '../main';
+
   export default {
     // This is the default way how  we could define properties. Like array with names.
     // This elements from array should be defined from outside.
@@ -46,7 +48,23 @@
         // RIGHT WAY. 1) Name of event whatever you like. 2) parameter.
         // We also declare this event in User component.
         this.$emit('nameWasReset', this.myName);
-      }
+      },
+    },
+    // EVENT BUS
+    // we need "created" lifecycle hook to use our eventBus to create a listener on events which we needed.
+    // we will listen the event and when it will raise - we execute the next function
+    created() {
+      // Using $emit in UserEdit
+      eventBus.$on('ageWasEdited', (value) => {
+        console.log('event bus raised the event! ageWasEdited, $emit.');
+        this.userAge = value;
+      });
+
+      // Using methods directly from eventBus.
+      eventBus.$on('ageWasEdited_2', (value) => {
+        console.log('event bus raised the event! ageWasEdited_2, method from event bus');
+        this.userAge = value;
+      });
     }
   }
 </script>

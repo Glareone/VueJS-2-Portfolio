@@ -1,7 +1,8 @@
 <template>
   <div class="component">
     <h1>The User Component</h1>
-    <p>I'm an awesome User!</p>
+    <p>name: {{ myName }}</p>
+    <p>Age: {{ age }} (As you can see - this age will not be changed because it doesn't listen the event bus as UserDetail do)</p>
     <button @click="changeName">Change my name!</button>
     <hr>
     <div class="row">
