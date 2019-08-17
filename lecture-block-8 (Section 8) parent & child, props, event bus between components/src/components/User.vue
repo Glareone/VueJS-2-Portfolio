@@ -16,8 +16,11 @@
             2) Compiled templates to javascript.
           otherwise better to use insensitive names: "name", "myname", "surname" and so on.
           we can't use "sur-name":"sur-name" as I showed below.
-         -->
-        <app-user-detail :myName="myName" :sur-name="sur-name" />
+
+          Pay attention on nameWasReset. It is an emit event which will be called from the child.
+          $event - is a default parameter
+        -->
+        <app-user-detail :myName="myName" :sur-name="sur-name" @nameWasReset="myName = $event"/>
       </div>
       <div class="col-xs-12 col-sm-6">
         <app-user-edit />

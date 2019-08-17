@@ -5,6 +5,7 @@
     <p>User Name: {{ myName }}</p>
     <p>User Name: {{ switchName() }}</p>
     <p>User Name: {{ surName }}</p>
+    <button @click="resetName">Reset Name</button>
   </div>
 </template>
 
@@ -35,6 +36,13 @@
       // this method also will be called after changing myName. And switchName() result will be up to date.
       switchName() {
         return this.myName.split('').reverse().join('');
+      },
+      resetName() {
+        // wrong way (without using $emit) because we mutated our prop outside. Parent component still stores old value (but shows updated one)
+        this.myName = 'Max2';
+        // RIGHT WAY. 1) Name of event whatever you like. 2) parameter.
+        // We also declare this event in User component.
+        this.$emit('nameWasReset', this.myName);
       }
     }
   }
