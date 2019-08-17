@@ -10,8 +10,14 @@
           Here we bind name property from User component and pass it to user-detail component.
           Pay attention. if we will write name="name" - it will not work, we will set up string "name", not name from model.
           That's why we need to use v-bind: or :
+
+          naming: we could use myName or my-name. Case sensitive "myName" we could use if we it supports:
+            1) Single file template (Best solution)
+            2) Compiled templates to javascript.
+          otherwise better to use insensitive names: "name", "myname", "surname" and so on.
+          we can't use "sur-name":"sur-name" as I showed below.
          -->
-        <app-user-detail :name="name" />
+        <app-user-detail :myName="myName" :sur-name="sur-name" />
       </div>
       <div class="col-xs-12 col-sm-6">
         <app-user-edit />
@@ -27,7 +33,8 @@
   export default {
     data: function() {
       return {
-        name: 'Alex'
+        myName: 'Alex',
+        'sur-name': 'Glareone'
       }
     },
     components: {
@@ -36,7 +43,7 @@
     },
     methods: {
       changeName() {
-        this.name = 'Max'
+        this.myName = 'Max'
       }
     }
   }
