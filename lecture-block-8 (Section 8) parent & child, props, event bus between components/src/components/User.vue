@@ -67,7 +67,7 @@
     },
     methods: {
       changeName() {
-        this.myName = 'Max'
+        this.myName = 'Max';
       },
       resetName() {
         this.myName = 'Default Name from reset Method in parent';
