@@ -1,7 +1,4 @@
-### A Vue.js project for lecture block 8. 
-> Components and their interactions: props, child / parent, event bus.
-
-> Take a look on comments over the code to understand all approaches.
+### Lecture 9, Advanced Component Usage
 
 ### Build Setup
 
