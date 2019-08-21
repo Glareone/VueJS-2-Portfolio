@@ -1,6 +1,6 @@
-# Exercise 6: Refactor project structure from lecture block 7
+### Third pet project in scope of this course: Wonderful Quotes
 
-## Build Setup
+### Build Setup
 
 ``` bash
 # install dependencies
