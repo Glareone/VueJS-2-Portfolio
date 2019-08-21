@@ -15,21 +15,49 @@
           <p>Default Paragraph</p>
         </app-quote>
       </div>
+      <hr>
+      <div class="col-xs-12">
+        <button @click="selectedComponent = 'appQuote'">Quote</button>
+        <button @click="selectedComponent = 'appAuthor'">Author</button>
+        <button @click="selectedComponent = 'appNew'">Quote New Component</button>
+        <p> {{ selectedComponent }}</p>
+        <!--
+          Dynamic component is here. Also reserved word like slot.
+          is - reserved operator. Will interpreter like a name of needed component.
+          Selected component will be recreated again and again.
+        -->
+        <component :is="selectedComponent">
+        </component>
+
+        <!-- Using keep-alive keyword we could avoid component recreation. You could check it out taking attention on counter inside
+         appNew component (Quote New Component Button). We will preserve the inner state of these components.
+         console.log('destroyed'); will also not be raised.
+        -->
+        <hr>
+        <keep-alive>
+          <component :is="selectedComponent" />
+        </keep-alive>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import Quote from './components/Quote.vue';
+  import appAuthor from './components/AppAuthor.vue';
+  import appNew from './components/appNew.vue';
 
   export default {
     data: function() {
       return {
         quoteTitle: 'The Quote',
+        selectedComponent: 'appQuote'
       }
     },
     components: {
-      appQuote: Quote
+      appQuote: Quote,
+      appAuthor,
+      appNew
     }
   }
 </script>
