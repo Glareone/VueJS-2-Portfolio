@@ -7,26 +7,42 @@
           <hr>
           <div class="form-group">
             <label for="email">Mail</label>
+
+            <!-- NUMBER MODIFIER: Will be updated after unfocus from input
+                https://ru.vuejs.org/v2/guide/forms.html#trim
+            -->
             <input
                 type="text"
                 id="email"
                 class="form-control"
-                v-model="email"
+                v-model.trim="userData.email"
             >
           </div>
           <div class="form-group">
             <label for="password">Password</label>
+
+            <!-- LAZY MODIFIER: Will be updated after unfocus from input
+                https://ru.vuejs.org/v2/guide/forms.html#lazy
+            -->
             <input
                 type="password"
                 id="password"
-                class="form-control">
+                class="form-control"
+                v-model.lazy="userData.password"
+            >
           </div>
           <div class="form-group">
             <label for="age">Age</label>
+
+            <!-- NUMBER MODIFIER: Will be updated after unfocus from input
+              https://ru.vuejs.org/v2/guide/forms.html#number
+            -->
             <input
                 type="number"
                 id="age"
-                class="form-control">
+                class="form-control"
+                v-model.number="userData.age"
+            >
           </div>
 
         </div>
@@ -54,7 +70,7 @@
               <input
                   type="checkbox"
                   id="sendInfomail"
-                  value="SendInfoMail"> Send Infomail
+                  value="SendInfoMail"> Send Info mail
             </label>
           </div>
 
@@ -103,9 +119,9 @@
             <h4>Your Data</h4>
           </div>
           <div class="panel-body">
-            <p>Mail: {{ email }}</p>
-            <p>Password:</p>
-            <p>Age:</p>
+            <p>Mail: {{ userData.email }}</p>
+            <p>Password: {{ userData.password }}</p>
+            <p>Age: {{ userData.age }}</p>
             <p>Message: </p>
             <p><strong>Send Mail?</strong></p>
             <ul>
@@ -123,12 +139,16 @@
 
 <script>
   export default {
-      // data: function replacement es6
-      data() {
-          return {
-            email: ''
-          };
-      }
+    // data: function replacement es6
+    data() {
+      return {
+        userData: {
+          email: '',
+          password: '',
+          age: 30,
+        }
+      };
+    }
   }
 </script>
 
