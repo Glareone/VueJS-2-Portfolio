@@ -157,8 +157,12 @@
 
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+          <!-- prevent is preventDefault to prevent submitting to the server -->
           <button
-              class="btn btn-primary">Submit!
+              class="btn btn-primary"
+              @click.prevent="submitted"
+          >
+            Submit!
           </button>
         </div>
       </div>
@@ -166,7 +170,7 @@
     <hr>
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-        <div class="panel panel-default">
+        <div class="panel panel-default" :class="{'red-border': isSubmitted}">
           <div class="panel-heading">
             <h4>Your Data</h4>
           </div>
@@ -207,8 +211,14 @@
         gender: 'Male',
         priorities: ['High', 'Medium', 'Low'],
         selectedPriority: 'High',
-          dataSwitch: false,
+        dataSwitch: false,
+        isSubmitted: false,
       };
+    },
+    methods: {
+      submitted() {
+        this.isSubmitted = true;
+      }
     },
     components: {
       appMyOwnSwitch: MyOwnSwitch
@@ -216,6 +226,9 @@
   }
 </script>
 
-<style>
-
+<style scoped>
+    .red-border {
+        border: 1px solid #76ff7e;
+        border-radius: 10px;
+    }
 </style>
