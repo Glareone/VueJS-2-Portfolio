@@ -10,6 +10,13 @@
 
             <!-- NUMBER MODIFIER: Will be updated after unfocus from input
                 https://ru.vuejs.org/v2/guide/forms.html#trim
+
+
+                 Behind the scenes v-model equals to two properties:
+                 :value="sendMail"
+                 @input="userData = $event.target.value"
+
+                 Explaining in MyOwnSwitch.vue component.
             -->
             <input
                 type="text"
@@ -56,7 +63,7 @@
               rows="5"
               class="form-control"
               v-model="message"
-          />
+          ></textarea>
         </div>
       </div>
       <div class="row">
@@ -139,7 +146,15 @@
           </select>
         </div>
       </div>
+
+      <!-- PAY ATTENTION. My own switch (input) -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+          <app-my-own-switch v-model="dataSwitch"></app-my-own-switch>
+        </div>
+      </div>
       <hr>
+
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
           <button
@@ -167,7 +182,7 @@
             </ul>
             <p>Gender: {{ gender }}</p>
             <p>Priority: {{ selectedPriority }}</p>
-            <p>Switched:</p>
+            <p>Switched: {{ dataSwitch }}</p>
           </div>
         </div>
       </div>
@@ -176,6 +191,8 @@
 </template>
 
 <script>
+  import MyOwnSwitch from './MyOwnSwitch.vue';
+
   export default {
     // data: function replacement es6
     data() {
@@ -189,8 +206,12 @@
         sendMail: [],
         gender: 'Male',
         priorities: ['High', 'Medium', 'Low'],
-        selectedPriority: 'High'
+        selectedPriority: 'High',
+          dataSwitch: false,
       };
+    },
+    components: {
+      appMyOwnSwitch: MyOwnSwitch
     }
   }
 </script>
