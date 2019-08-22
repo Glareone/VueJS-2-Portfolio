@@ -54,23 +54,39 @@
           <textarea
               id="message"
               rows="5"
-              class="form-control"></textarea>
+              class="form-control"
+              v-model="message"
+          />
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
           <div class="form-group">
             <label for="sendmail">
+              <!-- Pay attention of v-model here. We use v-model with array.
+                We could group the data from similar controls like checkboxes in array
+                It will add value: SendMail
+              -->
               <input
                   type="checkbox"
                   id="sendmail"
-                  value="SendMail"> Send Mail
+                  value="SendMail"
+                  v-model="sendMail"
+              >
+              Send Mail
             </label>
             <label for="sendInfomail">
+              <!-- Pay attention of v-model here. We use v-model with array.
+                We could group the data from similar controls like checkboxes in array
+                It will add value: SendInfoMail
+              -->
               <input
                   type="checkbox"
                   id="sendInfomail"
-                  value="SendInfoMail"> Send Info mail
+                  value="SendInfoMail"
+                  v-model="sendMail"
+              >
+              Send Info mail
             </label>
           </div>
 
@@ -122,10 +138,11 @@
             <p>Mail: {{ userData.email }}</p>
             <p>Password: {{ userData.password }}</p>
             <p>Age: {{ userData.age }}</p>
-            <p>Message: </p>
+            <!-- white-space: pre allows us to show text with padding in text from text area. Like enter padding -->
+            <p style="white-space: pre">Message: {{ message }}</p>
             <p><strong>Send Mail?</strong></p>
             <ul>
-              <li></li>
+              <li v-for="mail in sendMail">{{ mail }}</li>
             </ul>
             <p>Gender:</p>
             <p>Priority:</p>
@@ -146,7 +163,9 @@
           email: '',
           password: '',
           age: 30,
-        }
+        },
+        message: 'A new message in Text Area',
+        sendMail: []
       };
     }
   }
