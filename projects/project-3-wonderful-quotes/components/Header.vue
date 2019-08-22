@@ -4,6 +4,7 @@
       <h3>Quotes Added:</h3>
       <div class="progress">
         <div class="progress">
+          <!-- dynamic style with calculation on vuejs side-->
           <div
               class="progress-bar"
               role="progressbar"
