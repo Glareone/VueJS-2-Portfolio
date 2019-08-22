@@ -123,10 +123,19 @@
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
           <label for="priority">Priority</label>
+          <!-- we could use v-model also on select element. It will be a default value for select and will override :selected prop -->
           <select
               id="priority"
-              class="form-control">
-            <option></option>
+              class="form-control"
+              v-model="selectedPriority"
+          >
+            <!--
+                Pay attention on :selected property, we could bind default value like here. Or using v-model like in "select v-model"
+                v-model in select overrides :selected property here.
+             -->
+            <option v-for="priority in priorities" :selected="priority === 'Medium'">
+              {{ priority }}
+            </option>
           </select>
         </div>
       </div>
@@ -157,7 +166,7 @@
               <li v-for="mail in sendMail">{{ mail }}</li>
             </ul>
             <p>Gender: {{ gender }}</p>
-            <p>Priority:</p>
+            <p>Priority: {{ selectedPriority }}</p>
             <p>Switched:</p>
           </div>
         </div>
@@ -179,6 +188,8 @@
         message: 'A new message in Text Area',
         sendMail: [],
         gender: 'Male',
+        priorities: ['High', 'Medium', 'Low'],
+        selectedPriority: 'High'
       };
     }
   }
