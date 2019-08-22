@@ -95,16 +95,28 @@
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 form-group">
           <label for="male">
+            <!-- we could simply group radio buttons only use v-model.
+             We also could do this with name="group1" in html5 native code
+              https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/radio
+              -->
             <input
                 type="radio"
                 id="male"
-                value="Male"> Male
+                value="Male"
+                v-model="gender"
+            >
+            Male
           </label>
+          <!-- we could simply group radio buttons only use v-model.
+           We also could do this with name="group1" in html5 native code -->
           <label for="female">
             <input
                 type="radio"
                 id="female"
-                value="Female"> Female
+                value="Female"
+                v-model="gender"
+            >
+            Female
           </label>
         </div>
       </div>
@@ -144,7 +156,7 @@
             <ul>
               <li v-for="mail in sendMail">{{ mail }}</li>
             </ul>
-            <p>Gender:</p>
+            <p>Gender: {{ gender }}</p>
             <p>Priority:</p>
             <p>Switched:</p>
           </div>
@@ -165,7 +177,8 @@
           age: 30,
         },
         message: 'A new message in Text Area',
-        sendMail: []
+        sendMail: [],
+        gender: 'Male',
       };
     }
   }
