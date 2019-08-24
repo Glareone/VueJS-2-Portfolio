@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-// CUSTOM DIRECTIVE
+// CUSTOM GLOBAL DIRECTIVES
 // Will be bound in app.vue
 Vue.directive('highlight', {
     bind(el, binding, vnode) { // gives us access to the bind element
@@ -13,11 +13,20 @@ Vue.directive('highlight', {
 // custom directive which could be used by v-highlight2
 Vue.directive('highlight2', {
   bind(el, binding, vnode) { // gives us access to the bind element
-    if(binding.arg === 'background') {
-      el.style.backgroundColor = binding.value;
-    } else {
-      el.style.color = binding.value; // otherwise set up the text color
+    // checking custom modifiers
+    let delay = 0;
+    if(binding.modifiers['delayed']) {
+      delay = 2000;
     }
+
+    // using a delay modifier
+    setTimeout(() => {
+      if(binding.arg === 'background') { // checking arguments
+        el.style.backgroundColor = binding.value;
+      } else {
+        el.style.color = binding.value; // otherwise set up the text color
+      }
+    }, delay);
   }
 });
 
