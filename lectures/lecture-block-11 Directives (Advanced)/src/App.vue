@@ -25,6 +25,8 @@
         <p v-local-highlight:background.delayed="'orangered'">BackGround will be orangered with delay</p>
         <h4>Multiple Modifiers</h4>
         <p v-local-highlight-blink:background.delayed.blink="'orangered'">BackGround will be orangered with delay</p>
+        <!-- more complex arguments are here -->
+        <p v-local-highlight-blink2:background.delayed.blink="{ mainColor: 'red', secondColor: 'green', delay: 500 }">BackGround will be orangered with delay</p>
       </div>
     </div>
   </div>
@@ -83,6 +85,46 @@
             setTimeout(() => {
               if(binding.arg === 'background') { // checking arguments
                 el.style.backgroundColor = binding.value;
+              }
+              else {
+                el.style.color = binding.value; // otherwise set up the text color
+              }
+            }, delay);
+          }
+        }
+      },
+      'local-highlight-blink2': {
+        bind(el, binding, vnode) {
+          // checking custom modifiers
+          let delay = 0;
+          if(binding.modifiers['delayed']) {
+            delay = 1000;
+          }
+
+          // using a delay modifier with blink modifier
+          if(binding.modifiers['blink']) {
+            // instead of binding.value we have to use binding.value.mainColor (because we sent an object)
+            let mainColor = binding.value.mainColor;
+            // instead of binding.value we have to use binding.value.mainColor (because we sent an object)
+            let secondColor = binding.value.secondColor;
+            let currentColor = mainColor;
+            setTimeout(() => {
+              setInterval(() => {
+                currentColor = currentColor === secondColor ? mainColor : secondColor;
+                if(binding.arg === 'background') { // checking arguments
+                  el.style.backgroundColor = currentColor;
+                }
+                else {
+                  el.style.color = currentColor; // otherwise set up the text color
+                }
+              }, binding.value.delay);
+            }, binding.value.delay);
+          }
+          else {
+            setTimeout(() => {
+              if(binding.arg === 'background') { // checking arguments
+                // instead of binding.value we have to use binding.value.mainColor (because we sent an object)
+                el.style.backgroundColor = binding.value.mainColor;
               }
               else {
                 el.style.color = binding.value; // otherwise set up the text color
