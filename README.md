@@ -26,4 +26,7 @@
 * componentUpdate - how to update existing node in a dom WITH all children inside.
 * unbind - how to unbind element from DOM.
 
+### Transition & Animation
+![VueJS-instance-lifecycle](images-from-course/191-Transitions.jpg)
+
 > To get more info take a look on Lecture-block-11 Readme file and project.
