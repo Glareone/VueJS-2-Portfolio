@@ -27,6 +27,16 @@
 * unbind - how to unbind element from DOM.
 
 ### Transition & Animation
+* 
+> *-enter means v-enter like default naming and *yourTransitionObjectName*-enter.
+> The same for all other states.
+
 ![VueJS-instance-lifecycle](images-from-course/191-Transitions.jpg)
+
+* Transition Event Javascript Hooks.
+> They work with animation on the different steps of its lifecycle.
+
+![VueJS-instance-lifecycle](images-from-course/202-Transition%20Event%20Javascript%20Hooks.jpg)
+
 
 > To get more info take a look on Lecture-block-11 Readme file and project.

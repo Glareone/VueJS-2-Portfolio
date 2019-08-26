@@ -78,7 +78,7 @@
         <hr>
 
         <!-- Dynamic name in transition class. Pay attention on :name -->
-        <p>using dynamic name in transition tag:</p>
+        <label for="1">using dynamic name in transition tag:</label>
         <select name="select" id="1" v-model="selectedClass" class="form-control">
           <option value="fade">Fade</option>
           <option value="slide">Slide</option>
@@ -102,6 +102,8 @@
           <div class="alert alert-danger" v-if="show" key="1">This is some Danger</div>
           <div class="alert alert-warning" v-else key="2">This is some Warning</div>
         </transition>
+
+
 
       </div>
     </div>
