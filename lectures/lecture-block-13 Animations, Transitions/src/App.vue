@@ -77,7 +77,7 @@
         </transition>
         <hr>
 
-        <!-- Dynamin name in transition class. Pay attention on :name -->
+        <!-- Dynamic name in transition class. Pay attention on :name -->
         <p>using dynamic name in transition tag:</p>
         <select name="select" id="1" v-model="selectedClass" class="form-control">
           <option value="fade">Fade</option>
@@ -86,6 +86,21 @@
         <br><br>
         <transition :name="selectedClass">
           <div class="alert alert-info" v-if="show">This is some Info</div>
+        </transition>
+
+        <!--
+          Transition between multiple elements.
+          Pay attention on key. it is required parameter here.
+          Only one element should be diplayed (IN DOM) at time. v-show doesn't work. only v-if.
+          also pay attention on mode. 2 options:
+              out-in and in-out. out-in - let the old leave first.
+              in-out - let the new one be added to DOM first.
+         -->
+        <hr>
+        <p>Switching between multiple elements with animation:</p>
+        <transition name="fade" mode="in-out">
+          <div class="alert alert-danger" v-if="show" key="1">This is some Danger</div>
+          <div class="alert alert-warning" v-else key="2">This is some Warning</div>
         </transition>
 
       </div>
