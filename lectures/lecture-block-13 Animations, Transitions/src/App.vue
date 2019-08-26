@@ -130,12 +130,28 @@
 
           </div>
         </transition>
+        <hr>
+        <!-------------------------- Dynamic components animation ----------------------------------------------------->
+        <button
+            class="btn btn-primary"
+            @click="selectedComponent = selectedComponent === 'app-success-alert' ? 'app-danger-alert' : 'app-success-alert'"
+        >Change selected Component</button>
+        <br><br>
+        <transition name="fade" mode="out-in">
+          <component :is="selectedComponent" />
+        </transition>
+
+
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import DangerAlert from './DangerAlert(dynamic-component-animation).vue';
+  import SuccessAlert from './SuccessAlert(dynamic-component-animation).vue';
+
   export default {
     data() {
       return {
@@ -143,6 +159,7 @@
         selectedClass: 'fade',
         isLoad: true,
         elementWidth: 100, // default element width for js animation block
+        selectedComponent: 'app-danger-alert'
       }
     },
     methods: {
@@ -201,7 +218,10 @@
       leaveCancelled(element) {
         console.log('leaveCancelled');
       }
-
+    },
+    components: {
+      appDangerAlert: DangerAlert,
+      appSuccessAlert: SuccessAlert,
     }
   }
 </script>
