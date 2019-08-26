@@ -103,8 +103,33 @@
           <div class="alert alert-warning" v-else key="2">This is some Warning</div>
         </transition>
 
+        <!----------------------------------- JAVASCRIPT ANIMATION BLOCK ---------------------------------------------->
+        <hr>
+        <p>Javascript Animation Block</p>
+        <button class="btn btn-primary" @click="isLoad = !isLoad">Load / Remove Element</button>
+        <br><br>
+        <!--
+          hooks for JS animation. You also could use it with css animation which we used previously.
 
+          if we don't specify :css="false" here - it still tries to find v-enter, v-enter-active and so on
+          (because name is not declared here, it is default)
+          To escape this we have to specify :css="false" here without trying to find and attaching any css classes to it.
+        -->
+        <transition
+          @before-enter="beforeEnter"
+          @enter="enter"
+          @after-enter="afterEnter"
+          @enter-cancelled="enterCancelled"
+          @before-leave="beforeLeave"
+          @leave="leave"
+          @after-leave="afterLeave"
+          @leave-cancelled="leaveCancelled"
+          :css="false"
+        >
+          <div style="width: 300px; height: 100px; background-color: lightgreen;" v-if="isLoad">
 
+          </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -115,8 +140,68 @@
     data() {
       return {
         show: false,
-        selectedClass: 'fade'
+        selectedClass: 'fade',
+        isLoad: true,
+        elementWidth: 100, // default element width for js animation block
       }
+    },
+    methods: {
+      beforeEnter(element) {
+        console.log('beforeEnter');
+        this.elementWidth = 100;
+        element.style.width = `${this.elementWidth}px`;
+      },
+      enter(element, done) { // done if a functions which could be executed
+        // done will be executed when animation finishes. if we also use css animation - it will use time from css animation.
+        // you could call done to tell your app when animation is finished. But you shouldn't use it if you use css animation.
+        // css can determine when your animation is finished instead of pure js animation
+        console.log('enter');
+
+        let round = 1;
+        const interval = setInterval(() => {
+          element.style.width = (this.elementWidth + round * 10) + 'px';
+          round++;
+          if(round >= 20) {
+            clearInterval(interval);
+            done(); // without execution this done you will not see afterEnter in console.
+          }
+        }, 20);
+
+
+      },
+      afterEnter(element) {
+        console.log('afterEnter');
+      },
+      enterCancelled(element) {
+        console.log('enterCancelled');
+      },
+      beforeLeave(element) {
+        console.log('beforeLeave');
+        this.elementWidth = 300; // necessary because we will use this property in leave func
+        element.style.width = `${this.elementWidth}px`; // set our border width for element. it is not necessary because our animation
+        // will work from 100px till 300px. (based on logic in enter());
+      },
+      leave(element, done) {
+        // here is a done function for the same purposes as for enter.
+        console.log('leave');
+
+        let round = 1;
+        const interval = setInterval(() => {
+          element.style.width = (this.elementWidth - round * 10) + 'px';
+          round++;
+          if(round >= 20) {
+            clearInterval(interval);
+            done(); // without execution this done you will not see afterEnter in console.
+          }
+        }, 20);
+      },
+      afterLeave(element) {
+        console.log('afterLeave');
+      },
+      leaveCancelled(element) {
+        console.log('leaveCancelled');
+      }
+
     }
   }
 </script>
