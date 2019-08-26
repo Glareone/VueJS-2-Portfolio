@@ -60,6 +60,33 @@
         <transition name="fade" appear>
           <div class="alert alert-info" v-if="true">Demo how to animate element on a page when v-if is true at the beginning</div>
         </transition>
+        <hr>
+        <!--
+          Two css classes at once by using enter-class:
+           animated, bounce - classes from animate.css which is bound to link in main.js.
+           enter-class and leave-class are not necessary because they are empty.
+           -->
+        <p>use animate classes outside: Animate.css</p>
+        <transition
+            enter-class=""
+            enter-active-class="animated bounce"
+            leave-class=""
+            leave-active-class="animated shake"
+        >
+          <div class="alert alert-info" v-if="show">Demo how to animate element</div>
+        </transition>
+        <hr>
+
+        <!-- Dynamin name in transition class. Pay attention on :name -->
+        <p>using dynamic name in transition tag:</p>
+        <select name="select" id="1" v-model="selectedClass" class="form-control">
+          <option value="fade">Fade</option>
+          <option value="slide">Slide</option>
+        </select>
+        <br><br>
+        <transition :name="selectedClass">
+          <div class="alert alert-info" v-if="show">This is some Info</div>
+        </transition>
 
       </div>
     </div>
@@ -71,6 +98,7 @@
     data() {
       return {
         show: false,
+        selectedClass: 'fade'
       }
     }
   }
