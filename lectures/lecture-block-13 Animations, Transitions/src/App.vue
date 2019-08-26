@@ -58,7 +58,9 @@
         <!-- Pay attention on appear -->
         <p>Show element on a page with animation (when v-if is true at the beginning)</p>
         <transition name="fade" appear>
-          <div class="alert alert-info" v-if="true">Demo how to animate element on a page when v-if is true at the beginning</div>
+          <div class="alert alert-info" v-if="true">Demo how to animate element on a page when v-if is true at the
+            beginning
+          </div>
         </transition>
         <hr>
         <!--
@@ -116,15 +118,15 @@
           To escape this we have to specify :css="false" here without trying to find and attaching any css classes to it.
         -->
         <transition
-          @before-enter="beforeEnter"
-          @enter="enter"
-          @after-enter="afterEnter"
-          @enter-cancelled="enterCancelled"
-          @before-leave="beforeLeave"
-          @leave="leave"
-          @after-leave="afterLeave"
-          @leave-cancelled="leaveCancelled"
-          :css="false"
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+            @enter-cancelled="enterCancelled"
+            @before-leave="beforeLeave"
+            @leave="leave"
+            @after-leave="afterLeave"
+            @leave-cancelled="leaveCancelled"
+            :css="false"
         >
           <div style="width: 300px; height: 100px; background-color: lightgreen;" v-if="isLoad">
 
@@ -135,12 +137,38 @@
         <button
             class="btn btn-primary"
             @click="selectedComponent = selectedComponent === 'app-success-alert' ? 'app-danger-alert' : 'app-success-alert'"
-        >Change selected Component</button>
+        >Change selected Component
+        </button>
         <br><br>
         <transition name="fade" mode="out-in">
-          <component :is="selectedComponent" />
+          <component :is="selectedComponent"/>
         </transition>
+        <hr>
+        <!-------------------------- List animation with transition-group ----------------------------------------------------->
+        <button class="btn btn-primary" @click="addItemToList">Add Item</button>
+        <br><br>
+        <!-- One important difference from transition.
+          <transition> is not rendered in a DOM!
+          <transition-group> does render a new HTML tag!
+          by default, it will be span. but you can overwhite this setting by <transition-group tag="div"> (div for example).
 
+          key is required parameter. we use number because for this example number is unique identifier.
+        -->
+        <ul class="list-group">
+          <!-- slide here is for css animation slide-enter and so on. -->
+          <transition-group name="slide">
+            <li
+
+                class="list-group-item"
+                v-for="(number, index) in numbers"
+                @click="removeItem(index)"
+                style="cursor: pointer"
+                :key="number"
+            >
+              {{ number }}
+            </li>
+          </transition-group>
+        </ul>
 
 
       </div>
@@ -159,14 +187,16 @@
         selectedClass: 'fade',
         isLoad: true,
         elementWidth: 100, // default element width for js animation block
-        selectedComponent: 'app-danger-alert'
+        selectedComponent: 'app-danger-alert',
+        numbers: [1, 2, 3, 4, 5]
       }
     },
     methods: {
+      //------------ JS ANIMATION HOOKS -------------------------------------------------------------------------------
       beforeEnter(element) {
         console.log('beforeEnter');
         this.elementWidth = 100;
-        element.style.width = `${this.elementWidth}px`;
+        element.style.width = `${ this.elementWidth }px`;
       },
       enter(element, done) { // done if a functions which could be executed
         // done will be executed when animation finishes. if we also use css animation - it will use time from css animation.
@@ -195,7 +225,7 @@
       beforeLeave(element) {
         console.log('beforeLeave');
         this.elementWidth = 300; // necessary because we will use this property in leave func
-        element.style.width = `${this.elementWidth}px`; // set our border width for element. it is not necessary because our animation
+        element.style.width = `${ this.elementWidth }px`; // set our border width for element. it is not necessary because our animation
         // will work from 100px till 300px. (based on logic in enter());
       },
       leave(element, done) {
@@ -217,6 +247,14 @@
       },
       leaveCancelled(element) {
         console.log('leaveCancelled');
+      },
+      //------------ JS ANIMATION HOOKS (upper) ------------------------------------------------------------------------
+      addItemToList() {
+        const position = Math.floor(Math.random() * this.numbers.length);
+        this.numbers.splice(position, 0, this.numbers.length + 1);
+      },
+      removeItem(index) {
+        this.numbers.splice(index, 1);
       }
     },
     components: {
@@ -247,7 +285,7 @@
   }
 
   .fade-leave {
-     /* opacity: 1; we could pass opacity: 1; here. but it is a default value and no reason to pass it here explicitly. */
+    /* opacity: 1; we could pass opacity: 1; here. but it is a default value and no reason to pass it here explicitly. */
   }
 
   .fade-leave-active {
@@ -258,7 +296,7 @@
   /* FOR slide transition element in a DOM (name) */
 
   .slide-enter {
-     /* transform: translateY(20px); beginning statement. no reason to state it here because we describe it in keyframes */
+    /* transform: translateY(20px); beginning statement. no reason to state it here because we describe it in keyframes */
   }
 
   .slide-enter-active {
@@ -271,6 +309,12 @@
 
   .slide-leave-active {
     animation: slide-out 1s ease-out forwards; /* forwards -animation stays in the end position */
+    position: absolute; /* this is for transition-group example. If we didn't add position - it will collapse ugly on delete item action.*/
+  }
+
+  /* This class for transition-group to smooth animate adding to the list. */
+  .slide-move {
+    transition: transform 1s;
   }
 
   /* FOR slide-transition transition element in a DOM (name) */
