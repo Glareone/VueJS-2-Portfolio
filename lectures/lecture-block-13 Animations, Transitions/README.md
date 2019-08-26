@@ -3,6 +3,11 @@
 ### Transition & Animation
 ![VueJS-instance-lifecycle](../../images-from-course/191-Transitions.jpg)
 
+* Transition Event Javascript Hooks.
+> They work with animation on the different steps of its lifecycle.
+
+![VueJS-instance-lifecycle](../../images-from-course/202-Transition%20Event%20Javascript%20Hooks.jpg)
+
 ``` bash
 # install dependencies
 npm install
