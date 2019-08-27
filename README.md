@@ -1,12 +1,12 @@
-## Exercises
+### Exercises
 * Folder contains exercises, demos and examples after every lecture block.
 
-## Lecture Blocks
+### Lecture Blocks
 * Folder Contains information from lectures with comments and additional examples.
 
 * Lecture-block-8 Contains only one project which all examples from all lecture-block course.
 
-## Projects
+### Projects
 * Folder Contains pet projects which was too big to place it into exercise folder.
 
 ### Useful information

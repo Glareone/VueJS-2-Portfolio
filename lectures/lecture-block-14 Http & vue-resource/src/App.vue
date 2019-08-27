@@ -32,21 +32,38 @@
           email: '',
         },
         users: [],
+        resource: {}, // for vue-resource (vue-resource could be used not like vue-http).
       }
     },
     methods: {
       submit() {
-        // We have already registered VueResource globally. that's why we have opportunities to use $http in any instances
-        // .json is necessary for firebase. MongoDB is under the hood.
-        this.$http.post('https://vuejs-backend-40bce.firebaseio.com/data.json', this.user)
-          .then(response => {
-            console.log(response);
-          }, error => {
-            console.log(error);
-          });
+        // 0) We have already registered VueResource globally. that's why we have opportunities to use $http in any instances
+        // .json is necessary for firebase. MongoDB is under the hood. (right now it is empty, url was moved to main.js)
+        // url is registered in "root" key in options (take a look on main.js).
+        // 1) if you need to add /sendData - place it here. otherwise - empty string (if we don't use vue-resource in created() hook, only vue-resource (http) which configured in main.js)
+        //
+        // Using direct $http call:
+        //
+        // this.$http.post('', this.user)
+        //   .then(response => {
+        //     console.log(response);
+        //   }, error => {
+        //     console.log(error);
+        //   });
+
+        // Using default vue-resources:
+        // https://github.com/pagekit/vue-resource/blob/develop/docs/resource.md
+        // 1st argument - parameters.
+        //this.resource.save({}, this.user); // using default vue-resources which stores to this variable.
+
+        // Using custom vue-resource which declared on created()
+        this.resource.saveAlt(this.user);
       },
       fetchData() {
-        this.$http.get('https://vuejs-backend-40bce.firebaseio.com/data.json')
+        // url is registered in "root" key in options (take a look on main.js).
+        // empty string (if we don't use vue-resource in created() hook, only vue-resource (http) which configured in main.js)
+        // 2) right now 'data.json' - because we configured vue-resource in created() hook.
+        this.$http.get('data.json')
           .then(response => {
             return response.json(); // deserialize from body to object. but it still returns promise. that's why we need the third then.
           }).then(data => {
@@ -56,6 +73,27 @@
             }));
         });
       },
+    },
+    created() {
+      // we will use it to initialize vue-resource concept
+      // also a $ sign. $ - all resources which come from VUEJS ROOT (http is also comes from ROOT and we have access to it via $
+      // (no reason to use $ sign globally, for example in mmain.js)).
+
+      // data.json was it http.root configuration
+      // .json is necessary for firebase. MongoDB is under the hood. (right now it is empty, url was moved to main.js)
+
+      // custom resource
+      const customActions = {
+        saveAlt: { method: 'POST', url: 'alternative.json' }
+      };
+
+      // default resources
+      // Using vue-resources:
+      // https://github.com/pagekit/vue-resource/blob/develop/docs/resource.md
+      //this.resource = this.$resource('data.json');
+
+      // with adding custom resources to default:
+      this.resource = this.$resource('data.json', {}, customActions);
     }
   }
 </script>

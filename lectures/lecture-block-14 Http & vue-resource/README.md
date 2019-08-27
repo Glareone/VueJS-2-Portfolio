@@ -6,6 +6,9 @@ https://console.firebase.google.com/u/0/project/vuejs-backend-40bce/database/vue
 * link to the firebase: https://vuejs-backend-40bce.firebaseio.com/
 * rules: read\write without auth.
 
+* Using vue-resources:
+https://github.com/pagekit/vue-resource/blob/develop/docs/resource.md
+
 ### Build Setup
 
 ``` bash
