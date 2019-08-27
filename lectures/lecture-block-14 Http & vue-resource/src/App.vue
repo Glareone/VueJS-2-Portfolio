@@ -37,14 +37,13 @@
     },
     methods: {
       submit() {
-        // 0) We have already registered VueResource globally. that's why we have opportunities to use $http in any instances
+        //  0) We have already registered VueResource globally. that's why we have opportunities to use $http in any instances
         // .json is necessary for firebase. MongoDB is under the hood. (right now it is empty, url was moved to main.js)
-        // url is registered in "root" key in options (take a look on main.js).
-        // 1) if you need to add /sendData - place it here. otherwise - empty string (if we don't use vue-resource in created() hook, only vue-resource (http) which configured in main.js)
+        //  url is registered in "root" key in options (take a look on main.js).
+        //  1) if you need to add /sendData - place it here. otherwise - empty string (if we don't use vue-resource in created() hook, only vue-resource (http) which configured in main.js)
         //
-        // Using direct $http call:
-        //
-        // this.$http.post('', this.user)
+        //  Using direct $http call:
+        //  this.$http.post('', this.user)
         //   .then(response => {
         //     console.log(response);
         //   }, error => {
@@ -63,14 +62,15 @@
         // url is registered in "root" key in options (take a look on main.js).
         // empty string (if we don't use vue-resource in created() hook, only vue-resource (http) which configured in main.js)
         // 2) right now 'data.json' - because we configured vue-resource in created() hook.
+        // this is the example of how to use http directly without using vue-resource (using this.resource as we use it submit).
         this.$http.get('data.json')
-          .then(response => {
-            return response.json(); // deserialize from body to object. but it still returns promise. that's why we need the third then.
-          }).then(data => {
-              this.users =  Object.keys(data).map(element => ({
-                userName: data[element].userName,
-                email: data[element].email,
-            }));
+            .then(response => {
+              return response.json(); // deserialize from body to object. but it still returns promise. that's why we need the third then.
+            }).then(data => {
+          this.users = Object.keys(data).map(element => ({
+            userName: data[element].userName,
+            email: data[element].email,
+          }));
         });
       },
     },
@@ -90,7 +90,7 @@
       // default resources
       // Using vue-resources:
       // https://github.com/pagekit/vue-resource/blob/develop/docs/resource.md
-      //this.resource = this.$resource('data.json');
+      // this.resource = this.$resource('data.json');
 
       // with adding custom resources to default:
       this.resource = this.$resource('data.json', {}, customActions);

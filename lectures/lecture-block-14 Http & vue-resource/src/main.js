@@ -26,11 +26,12 @@ Vue.http.interceptors.push((request, next) => {
     request.method = 'PUT';
   }
 
-  // next is a collback for the next function in interceptors array and also allow us to continue to work with our response or request.
-  //next();
+  // next is a callback for the next function in interceptors array and also allow us to continue to work with our
+  // response or request. next();
 
   // if we want to intercept the response - we could do the next:
-  // we stores our body in another object (because PUT method and POST methods has different type of storing data in MongoDB).
+  // we stores our body in another object (because PUT method and POST methods has different type of storing data in
+  // MongoDB).
   next(response => {
     response.json = () => {
       return {
