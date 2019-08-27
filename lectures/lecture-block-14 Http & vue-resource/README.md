@@ -1,8 +1,18 @@
-# vue-cli
+### Lecture Block 14, HTTP & vue-resource
 
-> A Vue.js project
+### Back-end for this project based on firebase from google:
+https://console.firebase.google.com/u/0/project/vuejs-backend-40bce/database/vuejs-backend-40bce/data
 
-## Build Setup
+* link to the firebase: https://vuejs-backend-40bce.firebaseio.com/
+* rules: read\write without auth.
+
+* Using vue-resources:
+https://github.com/pagekit/vue-resource/blob/develop/docs/resource.md
+
+* URI templates:
+https://medialize.github.io/URI.js/uri-template.html
+
+### Build Setup
 
 ``` bash
 # install dependencies
@@ -14,5 +24,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
