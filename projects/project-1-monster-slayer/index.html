@@ -5,6 +5,15 @@
   <script src="../../vue.js"></script>
   <link href="css/foundation.min.css" rel="stylesheet">
   <link href="css/app.css" rel="stylesheet">
+  <style>
+    .fade-enter-active {
+      transition: opacity 0.5s;
+    }
+
+    .fade-enter {
+      opacity: 0;
+    }
+  </style>
 </head>
 <body>
 <div id="app">
@@ -57,12 +66,15 @@
   <section class="row log" v-if="turns.length">
     <div class="small-12 columns">
       <ul>
-        <li
-            :class="{ 'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer }"
-            v-for="turn in turns"
-        >
-          {{ turn.text }}
-        </li>
+        <transition-group name="fade">
+          <li
+              :class="{ 'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer }"
+              v-for="turn in turns"
+              :key="turn.id"
+          >
+            {{ turn.text }}
+          </li>
+        </transition-group>
       </ul>
     </div>
   </section>
