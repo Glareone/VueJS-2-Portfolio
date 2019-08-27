@@ -9,6 +9,9 @@ https://console.firebase.google.com/u/0/project/vuejs-backend-40bce/database/vue
 * Using vue-resources:
 https://github.com/pagekit/vue-resource/blob/develop/docs/resource.md
 
+* URI templates:
+https://medialize.github.io/URI.js/uri-template.html
+
 ### Build Setup
 
 ``` bash

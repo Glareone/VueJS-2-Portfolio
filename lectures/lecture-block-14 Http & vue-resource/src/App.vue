@@ -13,6 +13,9 @@
         </div>
         <div class="btn btn-primary" @click="submit">Submit</div>
         <hr>
+        <!-- input to change "node" in resource-->
+        <input type="text" class="form-control" v-model="node">
+        <br><br>
         <button class="btn-primary" @click="fetchData">Get Data</button>
         <br><br>
         <ul class="list-group">
@@ -33,6 +36,7 @@
         },
         users: [],
         resource: {}, // for vue-resource (vue-resource could be used not like vue-http).
+        node: 'data' // for vue-resource route.
       }
     },
     methods: {
@@ -63,7 +67,19 @@
         // empty string (if we don't use vue-resource in created() hook, only vue-resource (http) which configured in main.js)
         // 2) right now 'data.json' - because we configured vue-resource in created() hook.
         // this is the example of how to use http directly without using vue-resource (using this.resource as we use it submit).
-        this.$http.get('data.json')
+        // this.$http.get('data.json')
+        //     .then(response => {
+        //       return response.json(); // deserialize from body to object. but it still returns promise. that's why we need the third then.
+        //     }).then(data => {
+        //   this.users = Object.keys(data).map(element => ({
+        //     userName: data[element].userName,
+        //     email: data[element].email,
+        //   }));
+        // });
+
+        // getData uses the default url (as you can see here: getData: { method: 'GET', })
+        // but here we could specify node which we use in uri template below in created(): (this.$resource('{node}.json', {}, customActions);)
+        this.resource.getData({ node: this.node })
             .then(response => {
               return response.json(); // deserialize from body to object. but it still returns promise. that's why we need the third then.
             }).then(data => {
@@ -82,9 +98,10 @@
       // data.json was it http.root configuration
       // .json is necessary for firebase. MongoDB is under the hood. (right now it is empty, url was moved to main.js)
 
-      // custom resource
+      // custom resource creation. adding is below:
       const customActions = {
-        saveAlt: { method: 'POST', url: 'alternative.json' }
+        saveAlt: { method: 'POST', url: 'alternative.json' },
+        getData: { method: 'GET', }
       };
 
       // default resources
@@ -93,7 +110,11 @@
       // this.resource = this.$resource('data.json');
 
       // with adding custom resources to default:
-      this.resource = this.$resource('data.json', {}, customActions);
+      // this.resource = this.$resource('data.json', {}, customActions);
+
+      // to make more flexible we could add parameter instead of data.json. Let's name it node:
+      // https://medialize.github.io/URI.js/uri-template.html
+      this.resource = this.$resource('{node}.json', {}, customActions);
     }
   }
 </script>
