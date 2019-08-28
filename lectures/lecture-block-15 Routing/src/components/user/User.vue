@@ -4,7 +4,8 @@
     <hr>
     <p>Loaded Id: {{ userId }}</p>
     <button @click="navigateToHome" class="btn btn-primary">Go to Homepage</button>
-
+    <hr>
+    <router-view></router-view>
   </div>
 
 </template>
@@ -32,7 +33,10 @@
         // $ sign to get access to some stuff from root vuejs (described better in lecture-block 14).
         // simple example: this.$router.push('/');
         // instead of watch you could use router-props. take a look on routes.js
-        this.$router.push({ path: '/' }); // we could use parameters in such case.
+        //this.$router.push({ path: '/' }); // we could use parameters in such case.
+
+        // instead of declaring path we could use named route:
+        this.$router.push({ name: 'home' });
       }
     },
     props: {

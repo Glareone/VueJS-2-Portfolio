@@ -23,11 +23,11 @@
       "exact" - full path match to avoid this problem.
 
       user 10 and user 15 for demonstration of watching needs on $route in User component.
-
-    -->
-      <router-link class="nav-link" to="/" tag="li" active-class="active" exact ><a>Home</a></router-link>
       <router-link class="nav-link" to="/user/10" tag="li" active-class="active"><a>User 10</a></router-link>
       <router-link class="nav-link" to="/user/15" tag="li" active-class="active"><a>User 15</a></router-link>
+    -->
+      <router-link class="nav-link" to="/" tag="li" active-class="active" exact ><a>Home</a></router-link>
+      <router-link class="nav-link" to="/user" tag="li" active-class="active"><a>User</a></router-link>
   </ul>
 </template>
 
