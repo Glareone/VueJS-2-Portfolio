@@ -12,7 +12,13 @@ Vue.use(VueRouter);
 // more info: https://router.vuejs.org/ru/guide/essentials/history-mode.html
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior(to, from, savedPosition) { // means  scrolling to hash-tag: http://localhost:8080/user/2/edit?locale=en&q=100#data
+    if (to.hash) {
+      // if hash exists in url
+      return { selector: to.hash };
+    }
+  }
 });
 
 new Vue({

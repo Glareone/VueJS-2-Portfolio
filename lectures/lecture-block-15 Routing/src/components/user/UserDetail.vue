@@ -14,11 +14,16 @@
       <router-link class="btn" tag="button" :to="`/user/${$route.params.id}/edit`">
 
       query - query parameters in object..
+
+      hash - hash fragments on a page which declares about some topics. We could navigate through them.
+      Default browser behavior. it works via url. But without additional configuration it doesn't work with routing using buttons(to open this page).
+      hash-tag: http://localhost:8080/user/2/edit?locale=en&q=100#data
+      take a look on main.js
      -->
     <router-link
         class="btn"
         tag="button"
-        :to="{ name: 'userEdit', params: { id: $route.params.id }, query: { locale: 'en', q: 100 } }"
+        :to="{ name: 'userEdit', params: { id: $route.params.id }, query: { locale: 'en', q: 100 }, hash: '#data' }"
     >
       Edit User
     </router-link>
