@@ -12,8 +12,14 @@
       params also ability to provide some props to page.
 
       <router-link class="btn" tag="button" :to="`/user/${$route.params.id}/edit`">
+
+      query - query parameters in object..
      -->
-    <router-link class="btn" tag="button" :to="{ name: 'userEdit', params: { id: $route.params.id } }">
+    <router-link
+        class="btn"
+        tag="button"
+        :to="{ name: 'userEdit', params: { id: $route.params.id }, query: { locale: 'en', q: 100 } }"
+    >
       Edit User
     </router-link>
   </div>
