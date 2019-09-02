@@ -38,5 +38,14 @@
 
 ![VueJS-instance-lifecycle](images-from-course/202-Transition%20Event%20Javascript%20Hooks.jpg)
 
+### VUEX:
+
+* Direct accessing and fetching data from the store
+![VueJS-instance-lifecycle](images-from-course/260-Vuex.jpg)
+
+
+* Getters with the vuex store.
+![VueJS-instance-lifecycle](images-from-course/264-getters-with-vuex.jpg)
+
 
 > To get more info take a look on Lecture-block-11 Readme file and project.

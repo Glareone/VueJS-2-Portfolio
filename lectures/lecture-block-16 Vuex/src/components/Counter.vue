@@ -9,10 +9,11 @@
   export default {
     methods: {
       increment() {
-        this.$emit('updated', 1);
+        // store (vuex store) from a global object (root to be precise).
+        this.$store.state.counter++;
       },
       decrement() {
-        this.$emit('updated', -1);
+        this.$store.state.counter--;
       }
     }
   }

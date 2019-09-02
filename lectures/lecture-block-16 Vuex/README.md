@@ -1,5 +1,12 @@
 ### Lecture block 16, vuex
 
+* Direct accessing and fetching data from the store
+![VueJS-instance-lifecycle](../../images-from-course/260-Vuex.jpg)
+
+
+* Getters with the vuex store.
+![VueJS-instance-lifecycle](../../images-from-course/264-getters-with-vuex.jpg)
+
 ``` bash
 # install dependencies
 npm install
@@ -11,4 +18,3 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
