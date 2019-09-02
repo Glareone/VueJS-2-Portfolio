@@ -1,9 +1,24 @@
-import User from './components/user/User.vue';
+// Transform to lazy loading below:
+// import User from './components/user/User.vue';
+// import UserStart from './components/user/UserStart.vue';
+// import UserDetail from './components/user/UserDetail.vue';
+// import UserEdit from './components/user/UserEdit.vue';
 import Home from './components/Home.vue';
-import UserStart from './components/user/UserStart.vue';
-import UserDetail from './components/user/UserDetail.vue';
-import UserEdit from './components/user/UserEdit.vue';
 import Header from './components/Header.vue';
+
+// PAY ATTENTION ON System.import: https://stackoverflow.com/questions/45219086/vue-router-cannot-lazy-load-component-unexpected-token
+// Comments /**/ - special webpack syntax to group this bundles into one with name user. // https://router.vuejs.org/guide/advanced/lazy-loading.html
+// But seems like it doesn't work in this example. May be because of System.import instead of import. May be we need to take a look on webpack config:
+// https://webpack.js.org/guides/code-splitting/
+
+// lazy loading for components.
+// special webpack syntax.
+// this code will recognize by webpack to place it not in our general bundle, but in other place to allow load it if necessary
+
+const User = () => System.import(/* webpackChunkName: "user" */'./components/user/User.vue');
+const UserStart = () => System.import(/* webpackChunkName: "user" */'./components/user/UserStart.vue');
+const UserDetail = () => System.import(/* webpackChunkName: "user" */'./components/user/UserDetail.vue');
+const UserEdit = () => System.import(/* webpackChunkName: "user" */'./components/user/UserEdit.vue');
 
 export const routes = [
   { path: '', name: 'home', components: {
