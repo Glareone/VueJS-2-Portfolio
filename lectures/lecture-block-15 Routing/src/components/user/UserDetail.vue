@@ -23,9 +23,46 @@
     <router-link
         class="btn"
         tag="button"
-        :to="{ name: 'userEdit', params: { id: $route.params.id }, query: { locale: 'en', q: 100 }, hash: '#data' }"
+        :to="{ name: link.name, params: link.params, query: link.query, hash: link.hash }"
     >
       Edit User
     </router-link>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        link: {
+          name: 'userEdit',
+          params: {
+            id: this.$route.params.id,
+          },
+          query: {
+            locale: 'en',
+            q: 100,
+          },
+          hash: '#data'
+        }
+      }
+    },
+    // router lifecycle hook. GUARD.
+
+    beforeRouteEnter(to, from, next) {
+      // if(user.authenticated) { next(); } else { next(false) } // for example.
+      // also you could use next to redirect to another page.
+      next(); // also without it this page will not be loaded.
+      // You can't access to your data.
+      // this.link will not work because instance will not be created.
+
+      // PAY ATTENTION.
+      // Don't have access to this inside. only using next callback.
+      // If you want to take an access to data of this component - you could do next:
+      // next(vm => {
+      //  vm.link; // here your component
+      // });
+      console.log('user detail page: beforeRouteEnter');
+    }
+  }
+</script>

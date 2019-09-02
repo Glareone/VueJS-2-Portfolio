@@ -27,7 +27,14 @@ export const routes = [
     children: [
       // without anything in a path it will lead us to a parent route.
       { path: '', component: UserStart },
-      { path: ':id', component: UserDetail, props: (route) => ({ userId: route.params.id }) },
+      { path: ':id', component: UserDetail, props: (route) => ({ userId: route.params.id }), beforeEnter: (to, from, next) => {
+          console.log('inside route setup, beforeEnter'); // will raise only on user details page. More generic in routes.js.
+          // Also take a look on beforeRouteEnter() in userDetails page (lifecycle hook).
+          next(); // same things. next navigation without parameters.
+          // next(false) will abort next routing.
+          // next({params, path}) routing with parameters.
+        }
+      },
       { path: ':id/edit', component: UserEdit, name: 'userEdit' }, // name -a special ability to use named route instead of writing full path in router-link.
     ]
   },
