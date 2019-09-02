@@ -5,7 +5,11 @@
 
 
 * Getters with the vuex store.
-![VueJS-instance-lifecycle](../../images-from-course/264-getters-with-vuex.jpg)
+![Vuex-getters](../../images-from-course/264-getters-with-vuex.jpg)
+
+* Mutations with the vuex store.
+![Vuex-mutations](../../images-from-course/267-vuex-mutations.jpg)
+
 
 ``` bash
 # install dependencies
