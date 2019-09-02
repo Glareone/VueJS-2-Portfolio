@@ -14,11 +14,25 @@ const router = new VueRouter({
   routes,
   mode: 'history',
   scrollBehavior(to, from, savedPosition) { // means  scrolling to hash-tag: http://localhost:8080/user/2/edit?locale=en&q=100#data
+    if (savedPosition) {
+      return savedPosition;
+    }
     if (to.hash) {
       // if hash exists in url
       return { selector: to.hash };
     }
+    return { x:0, y: 0};
   }
+});
+
+// we could access router after declaring it.
+// GUARD example (does user have permissions to route to some pages or doesn't)
+// here you could use only very generic checks. To make for specific checks - you could follow to routes.js (beforeEnter).
+router.beforeEach((to, from, next) => {
+  console.log('global router beforeEach');
+  next(); // to allow next route without parameters.
+  // next(false); // to abort next operation.
+  // also you could pass a '/someroute' or { params, path }
 });
 
 new Vue({
