@@ -15,11 +15,11 @@
     </button>
     <br><br>
     <button
-        @click="asyncIncrementAction({ value: 1, duration: 500 })"
+        @click="asyncIncrementAction({ value: 3, duration: 500 })"
         class="btn btn-primary">Increment (mapActions with payload)
     </button>
     <button
-        @click="asyncDecrementAction({ value: 1, duration: 500 })"
+        @click="asyncDecrementAction({ value: 3, duration: 500 })"
         class="btn btn-primary">Decrement (mapActions with payload)
     </button>
   </div>

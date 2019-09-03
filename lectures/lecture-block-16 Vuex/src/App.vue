@@ -10,6 +10,11 @@
         <app-counter/>
         <hr>
         <app-another-counter/>
+        <hr>
+        <!-- value is a computed value (which use getters inside it) --->
+        <p>Example how to bind input to vuex:</p>
+        <input type="text" v-model="value" >
+        <p>{{ value }}</p>
       </div>
     </div>
   </div>
@@ -22,6 +27,18 @@
   import AnotherResult from './components/AnotherResult(mapGetters).vue';
 
   export default {
+    // to bind input to vuex
+    computed: {
+      // pay attention on how value is declared (not like a function).
+      value: {
+        get() {
+          return this.$store.getters.value;
+        },
+        set(value) { // SETTER INSIDE COMPUTED VALUE
+          this.$store.dispatch('updateValueAction', value);
+        }
+      },
+    },
     components: {
       appCounter: Counter,
       appAnotherCounter: AnotherCounter,
