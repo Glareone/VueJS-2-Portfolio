@@ -16,10 +16,10 @@
 </template>
 
 <script>
-  import Counter from './components/Counter.vue';
-  import AnotherCounter from './components/AnotherCounter.vue';
-  import Result from './components/Result.vue';
-  import AnotherResult from './components/AnotherResult.vue';
+  import Counter from './components/Counter(Direct-Property-Change,Store-Commit).vue';
+  import AnotherCounter from './components/AnotherCounter(Mutations,Actions).vue';
+  import Result from './components/Result(Computed+Store-Getters).vue';
+  import AnotherResult from './components/AnotherResult(mapGetters).vue';
 
   export default {
     components: {
