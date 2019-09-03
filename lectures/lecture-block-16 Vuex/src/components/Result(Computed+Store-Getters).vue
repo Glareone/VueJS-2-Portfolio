@@ -7,15 +7,26 @@
 </template>
 
 <script>
+  import * as types from '../store/types';
+
   export default {
    computed: {
      counter() {
        // we should do it if we don't have getters in our store.
        // return this.$store.state.counter * 2;
-       return this.$store.getters.doubleCounter;
+
+       // default example without namespace:
+       //return this.$store.getters.doubleCounter;
+
+       // with using namespace:
+       return this.$store.getters[types.DOUBLE_COUNTER];
      },
      clicks() {
-       return this.$store.getters.stringCounter;
+       // default example without namespace:
+       //return this.$store.getters.stringCounter;
+
+       // with namespace:
+       return this.$store.getters[types.CLICK_COUNTER];
      }
    }
   }

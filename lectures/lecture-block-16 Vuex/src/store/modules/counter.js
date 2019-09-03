@@ -1,4 +1,8 @@
 // Module for counter:
+
+// importing namespace
+import * as types from '../types';
+
 const state = {
   counter: 0,
 };
@@ -6,10 +10,14 @@ const state = {
 // getters, which could be used to make similar calculations with one piece of data for multiple components
 // reserved name. Could replace computed values in components.
 const getters = {
-  doubleCounter: (state) => {
+  // this is how to use dynamic names (js will replace this name in runtime).
+  // we also need to rename getters in places where we use them!
+  [types.DOUBLE_COUNTER]: (state) => {
     return state.counter * 2;
   },
-  stringCounter: (state) => {
+  // also could be stringCounter:
+  // stringCounter: (state) => {
+  [types.CLICK_COUNTER]: (state) => {
     return `${state.counter} Clicks`;
   },
 };
