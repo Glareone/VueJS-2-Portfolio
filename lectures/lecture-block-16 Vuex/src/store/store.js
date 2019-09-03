@@ -15,6 +15,15 @@ export const store = new Vuex.Store({
     },
     stringCounter: (state) => {
       return `${state.counter} Clicks`;
-    }
-  }
+    },
+  },
+  // mutations is a couple of methods which could be used to change the data in storage.
+  mutations: {
+    increment: (state) => {
+      state.counter++;
+    },
+    decrement: (state) => {
+      state.counter--;
+    },
+  },
 });

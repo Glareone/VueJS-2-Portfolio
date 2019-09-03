@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>Another Result component:</p>
     <p>Number of clicks (getter): {{ stringCounter }}</p>
     <p>Counter (using computed + vue store value) is: {{ doubleCounter }}</p>
   </div>

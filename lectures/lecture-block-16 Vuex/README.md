@@ -10,6 +10,9 @@
 * Mutations with the vuex store.
 ![Vuex-mutations](../../images-from-course/267-vuex-mutations.jpg)
 
+* Async changes with Actions + Mutations:
+![Vuex-actions](../../images-from-course/270-async-mutations-with-actions..jpg)
+
 
 ``` bash
 # install dependencies
