@@ -26,6 +26,8 @@
 * componentUpdate - how to update existing node in a dom WITH all children inside.
 * unbind - how to unbind element from DOM.
 
+> To get more info take a look on Lecture-block-11 Readme file and project.
+
 ### Transition & Animation
 * 
 > *-enter means v-enter like default naming and *yourTransitionObjectName*-enter.
@@ -53,5 +55,6 @@
 * Async changes with Actions + Mutations:
 ![Vuex-actions](images-from-course/270-async-mutations-with-actions..jpg)
 
-
-> To get more info take a look on Lecture-block-11 Readme file and project.
+> Namespaces in VUEX:
+> You could use auto-namespaces for Vuex >= 2.1
+> https://forum.vuejs.org/t/vuex-automatic-namespacing-for-beginners-how-to/24592
