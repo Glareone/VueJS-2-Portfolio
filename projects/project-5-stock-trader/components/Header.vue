@@ -53,9 +53,10 @@
       },
     },
     methods: {
-      ...mapActions([
-        'randomizeStocks',
-      ]),
+      ...mapActions({
+        randomizeStocks: 'randomizeStocks',
+        fetchData: 'loadData',
+      }),
       endDay() {
         this.randomizeStocks();
       },
@@ -75,7 +76,9 @@
       },
       // instead of saving data - loadData mutates the vuex state and could execute via mutations and actions.
       loadData() {
-        //this.$store.action
+        // action from mapActions (also renamed to prevent problems with the same names between this loadData
+        // and loadData in actions).
+        this.fetchData();
       },
     }
   }

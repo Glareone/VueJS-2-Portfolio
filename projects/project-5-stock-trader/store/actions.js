@@ -6,14 +6,12 @@ export const loadData = ({ commit }) => {
   // without $ sign because we call http directly
   Vue.http.get('data.json').then(response => response.json())
      .then(extractedData => {
-       if(data) {
-         const stocks = data.stocks;
-         const funds = data.funds;
-         const stockPortfolio = data.stockPortfolio;
+       if(extractedData) {
+         const stocks = extractedData.stocks;
 
          const portfolio = {
-           stockPortfolio,
-           funds,
+           stockPortfolio: extractedData.stockPortfolio,
+           funds: extractedData.funds,
          };
 
          commit('SET_STOCKS', stocks);
