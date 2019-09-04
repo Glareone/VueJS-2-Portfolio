@@ -4,7 +4,9 @@ const state = {
 };
 
 const getters = {
-  // PAY ATTENTION ON GETTERS. I inject getters here to get access to stocks from stocks module.
+  // communication between modules
+  // PAY ATTENTION ON GETTERS.
+  // I inject getters here to get access to stocks from stocks module.
   stockPortfolio(state, getters) {
     return state.stocks.map(stock => {
       // call "stocks" getter from "stocks" module.

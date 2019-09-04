@@ -22,7 +22,9 @@ const mutations = {
 
 const actions = {
   buyStock({ commit }, order) {
-    commit();
+    // communication between modules
+    // BUY_STOCK is located in a different module but will work.
+    commit('BUY_STOCK', order);
   },
   initStocks({ commit }) {
     commit('SET_STOCKS', StocksData);

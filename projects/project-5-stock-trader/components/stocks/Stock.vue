@@ -37,7 +37,9 @@
           quantity: this.quantity,
         };
 
-        console.log(order);
+        // we also could spread mapActions(['buyStock']) in methods and then use it here: this.buyStock(order);
+        // see example in portfolio/Stock.vue
+        this.$store.dispatch('buyStock', order);
         this.quantity = 0;
       },
     },
