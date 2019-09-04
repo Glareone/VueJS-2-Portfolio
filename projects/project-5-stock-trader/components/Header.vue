@@ -27,8 +27,8 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu animate slideIn">
-              <li><a href="#">Save Data</a></li>
-              <li><a href="#">Load Data</a></li>
+              <li><a href="#" @click="saveData">Save Data</a></li>
+              <li><a href="#" @click="loadData">Load Data</a></li>
             </ul>
           </li>
         </ul>
@@ -58,6 +58,24 @@
       ]),
       endDay() {
         this.randomizeStocks();
+      },
+      saveData() {
+        // instead of calling mutations or actions from vuex (because we doesn't mutate any data in vuex store)
+        // we will copy data from vuex and pass it to our storage
+        // we could create comprehensive http class in this project for this purposes later
+        const data = {
+          funds: this.$store.getters.funds,
+          stockPortfolio: this.$store.getters.stockPortfolio,
+          stocks: this.$store.getters.stocks,
+        };
+
+        // PUT request (because in firebase you will override your data using PUT).
+        // json is necessary for firebase. described in http lecture block.
+        this.$http.put('data.json', data);
+      },
+      // instead of saving data - loadData mutates the vuex state and could execute via mutations and actions.
+      loadData() {
+        //this.$store.action
       },
     }
   }
