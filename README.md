@@ -1,5 +1,5 @@
 ### Final project:
-[Stock Trader Project](https://glareone.github.io/portfolio)
+[Stock Trader Project](https://glareone.github.io/VueJS-2-Portfolio/)
 
 ### Exercises
 * Folder contains exercises, demos and examples after every lecture block.
