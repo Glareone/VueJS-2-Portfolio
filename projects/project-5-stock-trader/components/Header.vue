@@ -26,7 +26,7 @@
               Save & Load
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu animate slideIn">
               <li><a href="#">Save Data</a></li>
               <li><a href="#">Load Data</a></li>
             </ul>
@@ -42,6 +42,11 @@
 
   export default {
     name: 'Header',
+    data() {
+      return {
+        isDropdownOpen: false,
+      }
+    },
     computed: {
       funds() {
         return this.$store.getters.funds;
@@ -59,5 +64,16 @@
 </script>
 
 <style scoped>
+  /* For Bootstrap 3, for Bootstrap 4 use .dropdown.show instead of .dropdown.open */
+  .dropdown .dropdown-menu {
+    transition: all 0.4s;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+  }
 
+  .dropdown.open .dropdown-menu {
+    max-height: 300px;
+    opacity: 1;
+  }
 </style>
