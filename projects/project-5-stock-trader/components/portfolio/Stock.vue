@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-6 col-md-4">
-    <div class="panel panel-success">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">
           {{ stock.name }}
@@ -34,9 +34,9 @@
       }
     },
     methods: {
-      ...mapActions([
-        'sellStock'
-      ]),
+      ...mapActions({
+          placeSellOrder: 'sellStock',
+      }),
       sellStock() {
         const order = {
           stockId: this.stock.id,
@@ -45,7 +45,8 @@
         };
 
         //access to vuex method using mapActions spreading before accessing.
-        this.sellStock(order);
+        this.placeSellOrder(order);
+        this.quantity = 0;
       },
     },
     props: ['stock']
