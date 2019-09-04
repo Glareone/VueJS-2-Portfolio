@@ -15,8 +15,11 @@ const mutations = {
   'SET_STOCKS'(state, payload) {
     state.stocks = payload;
   },
+  // recalculate stocks prices after endDay function.
   'RANDOM_STOCKS'(state) {
-
+    state.stocks.forEach(stock => {
+      stock.price = Math.round(stock.price * (1 + Math.random() - 0.46));
+    });
   }
 };
 
@@ -30,7 +33,7 @@ const actions = {
     commit('SET_STOCKS', StocksData);
   },
   randomizeStocks: ({ commit }) => {
-    commit('RANDOM_STOCK');
+    commit('RANDOM_STOCKS');
   }
 };
 
