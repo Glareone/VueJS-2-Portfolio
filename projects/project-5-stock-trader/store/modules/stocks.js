@@ -1,4 +1,4 @@
-import StocksData from '../../dummyData/stocks';
+import StocksData from '../../src/dummyData/stocks';
 
 const state = {
   stocks: [],
