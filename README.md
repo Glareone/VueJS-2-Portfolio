@@ -1,3 +1,6 @@
+### Final project:
+[Stock Trader Project](https://glareone.github.io/portfolio)
+
 ### Exercises
 * Folder contains exercises, demos and examples after every lecture block.
 
