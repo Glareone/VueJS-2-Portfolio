@@ -69,6 +69,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     data() {
       return {
@@ -102,7 +104,11 @@
           hobbies: this.hobbyInputs.map(hobby => hobby.value),
           terms: this.terms
         };
-        console.log(formData)
+
+        // json for firebase (described in prev lectures)
+        axios.post('https://vuejs-axios-e9a2c.firebaseio.com/users.json', formData)
+          .then(res => console.log(res))
+          .catch(error => console.log(error));
       }
     }
   }
