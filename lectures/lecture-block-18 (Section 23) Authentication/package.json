@@ -1,6 +1,6 @@
 {
-  "name": "lecture-block-17-axios",
-  "description": "Vue Axios",
+  "name": "lecture-block-18-auth",
+  "description": "Authentication project",
   "version": "1.0.0",
   "author": "Aliaksei Glareone <business@academind.com>",
   "private": true,
