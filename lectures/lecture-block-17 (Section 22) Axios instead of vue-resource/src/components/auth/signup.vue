@@ -69,7 +69,9 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  // instead of using the global axios we will use dedicated axios instance
+  //import axios from 'axios';
+  import axios from '../../axios-auth (axios-instance)';
 
   export default {
     data() {

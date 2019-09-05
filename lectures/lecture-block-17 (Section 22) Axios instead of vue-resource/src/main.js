@@ -9,6 +9,9 @@ import store from './store'
 axios.defaults.baseURL = 'https://vuejs-axios-e9a2c.firebaseio.com';
 // default headers.
 // common will apply to any requests no matter which type(get, post, put) they are.
+
+// also take a look on "axios-auth" instance (axios auth file) to understand how to create dedicated axios instance to split
+// which headers should be attached (for example).
 axios.defaults.headers.common['Authorization'] = 'token';
 // only for get requests. could check it in network.
 axios.defaults.headers.get['something'] = 'something';
