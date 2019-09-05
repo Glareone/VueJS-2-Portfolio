@@ -105,8 +105,8 @@
           terms: this.terms
         };
 
-        // json for firebase (described in prev lectures)
-        axios.post('https://vuejs-axios-e9a2c.firebaseio.com/users.json', formData)
+        // json for firebase (described in prev lectures). other part in baseUrl
+        axios.post('/users.json', formData)
           .then(res => console.log(res))
           .catch(error => console.log(error));
       }
