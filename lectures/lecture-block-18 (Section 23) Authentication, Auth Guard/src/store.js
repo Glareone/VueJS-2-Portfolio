@@ -57,8 +57,17 @@ export default new Vuex.Store({
                    .then(res => {
                      console.log(res);
                      commit('authUser', { token: res.data.idToken, userId: res.data.localId });
-                     dispatch('storeUser', userData);
 
+                     localStorage.setItem('userId', res.data.localId);
+                     localStorage.setItem('token', res.data.idToken);
+
+                     // let's store the date when we signUp (expiresIn contains 3600s, not a date. We need to calculate a date).
+                     let now = new Date();
+                     const signUpDate = new Date(now.getTime() + res.data.expiresIn * 1000);
+                     localStorage.setItem('expirationDate', signUpDate);
+
+                     // save new user for dashboard
+                     dispatch('storeUser', userData);
                      // set Autologout with timer (depends on token expiration time, 3600 by default from firebase)
                      dispatch('setLogoutTimer', res.data.expiresIn);
                    })
@@ -74,10 +83,36 @@ export default new Vuex.Store({
                      console.log(res);
                      commit('authUser', { token: res.data.idToken, userId: res.data.localId });
 
+                     localStorage.setItem('userId', res.data.localId);
+                     localStorage.setItem('token', res.data.idToken);
+
+                     let now = new Date();
+                     const loginDate = new Date(now.getTime() + res.data.expiresIn * 1000);
+                     localStorage.setItem('expirationDate', loginDate);
+
                      // set Autologout with timer (depends on token expiration time, 3600 by default from firebase)
                      dispatch('setLogoutTimer', res.data.expiresIn);
                    })
                    .catch(error => console.log(error));
+    },
+
+    tryAutoLogin({ commit }) {
+      const token = localStorage.getItem('token');
+      if(!token) {
+        return;
+      }
+
+      const expirationDate = localStorage.getItem('expirationDate');
+      const now = new Date();
+
+      if(now >= expirationDate) {
+        // token is expired
+        return
+      }
+
+      // if token still valid - login
+      const userId = localStorage.getItem('userId');
+      commit('authUser', { token, userId });
     },
 
     // We will use this method after authentication to add this user to our firebase database.
@@ -114,6 +149,9 @@ export default new Vuex.Store({
     },
     logout({ commit }) {
       commit('clearAuthUser');
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('expirationDate');
       router.replace('/');
     }
   }
