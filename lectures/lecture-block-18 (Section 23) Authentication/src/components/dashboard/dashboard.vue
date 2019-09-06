@@ -7,6 +7,7 @@
 
 <script>
   import axios from 'axios';
+
   export default {
     data() {
       return {
@@ -16,14 +17,14 @@
     created() {
       // other part in baseUrl
       axios.get('/users.json')
-        .then(res => {
-          console.log(res);
-          this.users = Object.keys(res.data).map(key => ({
-            id: key,
-            email: res.data[key].email,
-          }));
-        })
-        .catch(error => console.log(error));
+           .then(res => {
+             console.log(res);
+             this.users = Object.keys(res.data).map(key => ({
+               id: key,
+               email: res.data[key].email,
+             }));
+           })
+           .catch(error => console.log(error));
     },
   }
 </script>

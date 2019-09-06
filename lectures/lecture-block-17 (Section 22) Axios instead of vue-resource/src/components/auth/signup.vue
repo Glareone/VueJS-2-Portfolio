@@ -109,8 +109,8 @@
 
         // json for firebase (described in prev lectures). other part in baseUrl
         axios.post('/users.json', formData)
-          .then(res => console.log(res))
-          .catch(error => console.log(error));
+             .then(res => console.log(res))
+             .catch(error => console.log(error));
       }
     }
   }
