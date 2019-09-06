@@ -6,6 +6,9 @@ import Vuex from 'vuex'
 import axiosInstance from './axios-auth (axios-instance)';
 import axios from 'axios';
 
+// we could import here a router and use it
+import router from './router';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -29,6 +32,10 @@ export default new Vuex.Store({
     },
     storeUsers(state, users) {
       state.users = users;
+    },
+    clearAuthUser(state) {
+      state.idToken = null;
+      state.userId = null;
     }
   },
   actions: {
@@ -92,6 +99,10 @@ export default new Vuex.Store({
              commit('storeUsers', users);
            })
            .catch(error => console.log(error));
+    },
+    logout({ commit }) {
+      commit('clearAuthUser');
+      router.replace('/');
     }
   }
 })
