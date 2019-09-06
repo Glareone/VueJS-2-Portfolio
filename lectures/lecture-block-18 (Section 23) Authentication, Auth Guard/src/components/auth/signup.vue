@@ -69,10 +69,6 @@
 </template>
 
 <script>
-  // instead of using the global axios we will use dedicated axios instance
-  //import axios from 'axios';
-  import axios from '../../axios-auth (axios-instance)';
-
   export default {
     data() {
       return {
@@ -106,11 +102,9 @@
           hobbies: this.hobbyInputs.map(hobby => hobby.value),
           terms: this.terms
         };
+        console.log(formData);
 
-        // json for firebase (described in prev lectures). other part in baseUrl
-        axios.post('/users.json', formData)
-             .then(res => console.log(res))
-             .catch(error => console.log(error));
+        this.$store.dispatch('signUp', formData);
       }
     }
   }

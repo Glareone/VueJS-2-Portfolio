@@ -61,3 +61,8 @@
 > Namespaces in VUEX:
 > You could use auto-namespaces for Vuex >= 2.1
 > https://forum.vuejs.org/t/vuex-automatic-namespacing-for-beginners-how-to/24592
+
+### Auth:
+ 
+ * Auth scheme with token for SPA
+ ![Vuex-actions](images-from-course/353-Auth.jpg)
