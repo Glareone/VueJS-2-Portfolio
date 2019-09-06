@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://vuejs-axios-e9a2c.firebaseio.com',
+  baseURL: 'https://identitytoolkit.googleapis.com/v1',
   // headers:
 });
 
-axiosInstance.defaults.headers.common['Authorization'] = 'token!';
+// demo purposes only:
+// axiosInstance.defaults.headers.common['Authorization'] = 'token!';
 
 export default axiosInstance;

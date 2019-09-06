@@ -71,7 +71,7 @@
 <script>
   // instead of using the global axios we will use dedicated axios instance
   //import axios from 'axios';
-  import axios from '../../axios-auth (axios-instance)';
+  import axiosInstance from '../../axios-auth (axios-instance)';
 
   export default {
     data() {
@@ -106,9 +106,15 @@
           hobbies: this.hobbyInputs.map(hobby => hobby.value),
           terms: this.terms
         };
+        console.log(formData);
 
-        // json for firebase (described in prev lectures). other part in baseUrl
-        axios.post('/users.json', formData)
+        // proper url to firebase auth server (email + password authentication).
+        // key comes from firebase configuration:
+        // https://console.firebase.google.com/u/0/project/vuejs-auth-978c4/settings/general/
+        // info about auth methods in firebase could be found here:
+        // https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
+        const authData = { email: this.email, password: this.password, returnSecureToken: true };
+        axiosInstance.post('/accounts:signUp?key=AIzaSyCOMzxMfs0gbqbsG6lq5BBawxrvaq457HI', authData)
              .then(res => console.log(res))
              .catch(error => console.log(error));
       }

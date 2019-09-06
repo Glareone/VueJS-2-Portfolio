@@ -25,6 +25,8 @@
 </template>
 
 <script>
+  import axiosInstance from '../../axios-auth (axios-instance)';
+
   export default {
     data() {
       return {
@@ -39,6 +41,12 @@
           password: this.password,
         };
         console.log(formData)
+
+        const authData = { email: this.email, password: this.password, returnSecureToken: true };
+        // key also comes from firebase setup. take a look into signup.vue file.
+        axiosInstance.post('/accounts:signInWithPassword?key=AIzaSyCOMzxMfs0gbqbsG6lq5BBawxrvaq457HI', authData)
+             .then(res => console.log(res))
+             .catch(error => console.log(error));
       }
     }
   }
