@@ -5,19 +5,30 @@
     </div>
     <nav>
       <ul>
-        <li>
+        <!-- Pay attention on v-if here. we could hide signUp if user is not authenticated yet.-->
+        <li v-if="!isAuth">
           <router-link to="/signup">Sign Up</router-link>
         </li>
-        <li>
+        <li v-if="!isAuth">
           <router-link to="/signin">Sign In</router-link>
         </li>
-        <li>
+        <li v-if="isAuth">
           <router-link to="/dashboard">Dashboard</router-link>
         </li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+  export default {
+    computed: {
+      isAuth() {
+        return this.$store.getters.isAuthenticated;
+      }
+    }
+  }
+</script>
 
 <style scoped>
   #header {

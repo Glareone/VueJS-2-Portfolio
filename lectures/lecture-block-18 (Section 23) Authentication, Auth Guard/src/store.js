@@ -17,6 +17,9 @@ export default new Vuex.Store({
   getters: {
     users(state) {
       return state.users;
+    },
+    isAuthenticated(state) {
+      return !!state.idToken;
     }
   },
   mutations: {
