@@ -39,6 +39,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // Auto logout function:
+    setLogoutTimer({ dispatch }, expirationTime) {
+      setTimeout(() => { dispatch('logout'); }, expirationTime * 1000 /* because of ms */);
+    },
+
     // pay attention on dispatch method here. This is how we could call one method from another.
     signUp({ commit, dispatch }, userData) {
       // proper url to firebase auth server (email + password authentication).
@@ -53,17 +58,24 @@ export default new Vuex.Store({
                      console.log(res);
                      commit('authUser', { token: res.data.idToken, userId: res.data.localId });
                      dispatch('storeUser', userData);
+
+                     // set Autologout with timer (depends on token expiration time, 3600 by default from firebase)
+                     dispatch('setLogoutTimer', res.data.expiresIn);
                    })
                    .catch(error => console.log(error));
     },
 
-    login({ commit }, userData) {
+    // pay attention on dispatch method here. This is how we could call one method from another.
+    login({ commit, dispatch }, userData) {
       const authData = { email: userData.email, password: userData.password, returnSecureToken: true };
 
       axiosInstance.post('/accounts:signInWithPassword?key=AIzaSyCOMzxMfs0gbqbsG6lq5BBawxrvaq457HI', authData)
                    .then(res => {
                      console.log(res);
                      commit('authUser', { token: res.data.idToken, userId: res.data.localId });
+
+                     // set Autologout with timer (depends on token expiration time, 3600 by default from firebase)
+                     dispatch('setLogoutTimer', res.data.expiresIn);
                    })
                    .catch(error => console.log(error));
     },
