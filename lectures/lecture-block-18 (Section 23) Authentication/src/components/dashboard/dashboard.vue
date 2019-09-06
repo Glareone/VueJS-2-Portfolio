@@ -6,25 +6,14 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
   export default {
-    data() {
-      return {
-        users: [],
-      };
+    computed: {
+      users() {
+        return this.$store.getters.users;
+      }
     },
     created() {
-      // other part in baseUrl
-      axios.get('/users.json')
-           .then(res => {
-             console.log(res);
-             this.users = Object.keys(res.data).map(key => ({
-               id: key,
-               email: res.data[key].email,
-             }));
-           })
-           .catch(error => console.log(error));
+      this.$store.dispatch('fetchUsers');
     },
   }
 </script>

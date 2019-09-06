@@ -104,8 +104,7 @@
         };
         console.log(formData);
 
-        const userData = { email: this.email, password: this.password };
-        this.$store.dispatch('signUp', userData);
+        this.$store.dispatch('signUp', formData);
       }
     }
   }
