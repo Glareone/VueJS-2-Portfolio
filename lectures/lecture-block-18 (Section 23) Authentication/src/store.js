@@ -29,6 +29,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // pay attention on dispatch method here. This is how we could call one method from another.
     signUp({ commit, dispatch }, userData) {
       // proper url to firebase auth server (email + password authentication).
       // key comes from firebase configuration:
@@ -58,19 +59,26 @@ export default new Vuex.Store({
     },
 
     // We will use this method after authentication to add this user to our firebase database.
-    // pay attention on dispatch here:
-    storeUser({ commit }, user) {
+    // pay attention on state here.
+    // we could use data from store inside this method.
+    storeUser({ commit, state }, user) {
+      if(!state.idToken) {
+        return;
+      }
       // default axios instance is used.
-      axios.post('/users.json', user)
+      axios.post(`/users.json?auth=${state.idToken}`, user)
            .then(res => {
              console.log(res);
            })
            .catch(error => console.log(error));
     },
-    fetchUsers({ commit }) {
+    fetchUsers({ commit, state }) {
+      if(!state.idToken) {
+        return;
+      }
       // default axios instance is used.
       // other part in baseUrl
-      axios.get('/users.json')
+      axios.get(`/users.json?auth=${state.idToken}`)
            .then(res => {
              console.log(res);
              const users = Object.keys(res.data).map(key => ({
