@@ -1,8 +1,8 @@
 {
-  "name": "lecture-block-18-auth",
-  "description": "Authentication project",
+  "name": "lecture-block-19-validation",
+  "description": "Validation project",
   "version": "1.0.0",
-  "author": "Aliaksei Glareone <business@academind.com>",
+  "author": "Aliaksei Glareone <enlarius@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
@@ -12,6 +12,7 @@
     "axios": "^0.19.0",
     "vue": "^2.4.4",
     "vue-router": "^3.0.1",
+    "vuelidate": "^0.7.4",
     "vuex": "^3.0.0"
   },
   "devDependencies": {
