@@ -63,19 +63,30 @@
           <h3>Add some Hobbies</h3>
           <button @click="onAddHobby" type="button">Add Hobby</button>
           <div class="hobby-list">
+            <!-- another option: {invalid: $v.hobbyInputs.$each[index].value.$error} - for one of them.
+             only $each.$error - means any error in multiple inputs
+             -->
             <div
                 :key="hobbyInput.id"
                 class="input"
+                :class="{invalid: $v.hobbyInputs.$each[index].$error}"
                 v-for="(hobbyInput, index) in hobbyInputs">
               <label :for="hobbyInput.id">Hobby #{{ index }}</label>
+              <!-- GOOD Example of making validation for arrays.
+                We added $touch on each element in array.
+               -->
               <input
                   :id="hobbyInput.id"
                   type="text"
+                  @blur="$v.hobbyInputs.$each[index].value.$touch()"
                   v-model="hobbyInput.value">
               <button @click="onDeleteHobby(hobbyInput.id)" type="button">X</button>
             </div>
           </div>
+          <!-- params contains all properties and their values of validation object. Each object has his own structure. -->
+          <p v-if="!$v.hobbyInputs.minLen">You have to specify at least {{ $v.hobbyInputs.$params.minLen.min }} of your hobbies.</p>
         </div>
+        <p v-if="!$v.hobbyInputs.required">Please add a hobbies</p>
         <!-- custom validation "terms". Pay attention on $invalid instead of $error -->
         <div class="input inline" :class="{invalid: $v.terms.$invalid}">
           <input
@@ -87,7 +98,8 @@
           <label for="terms">Accept Terms of Use</label>
         </div>
         <div class="submit">
-          <button type="submit">Submit</button>
+          <!-- disabled if any of input field on form has an error -->
+          <button type="submit" :disabled="$v.$invalid">Submit</button>
         </div>
       </form>
     </div>
@@ -120,8 +132,9 @@
     },
     validations: {
       // vuelidate requires that your validation has the same names with fields which they validate
-      // if you field named email - validation has to have the same name. Pay attention on field's Id: "email".
-      // but also we have to connect them to fields adding @input event to fields.
+      // if you field named email - validation has to have the same name. Pay attention on data() field "email".
+      // (not on id, hobbyInputs is an example).
+      // We have to connect them to fields adding @input \ @blur \ @change event to fields.
       email: {
         // is a js object with configuration. we added 2 validators to email field.
         required, // required: required
@@ -148,6 +161,19 @@
           // return true // will always be valid.
           return vueInstance.country !== 'Germany';
         })
+      },
+      hobbyInputs: {
+        // required also works for arrays
+        required,
+        minLen: minLength(2),
+        // pay attention on this prop.
+        // every of them has value. Take a look on onAddHobby
+        $each: {
+          value: {
+            required,
+            minLen: minLength(5)
+          }
+        }
       }
     },
     methods: {
