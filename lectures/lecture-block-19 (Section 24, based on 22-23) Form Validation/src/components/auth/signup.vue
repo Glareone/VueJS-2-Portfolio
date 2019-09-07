@@ -11,7 +11,7 @@
             "$touch()" - is a method which automatically exposes by vuelidate package (to connect default behavior with vuelidate).
             @input="$v.email.$touch()" - on any changes
             @blur="$v.email.$touch()" - on leave from input
-            
+
            -->
           <input
               id="email"
@@ -22,27 +22,32 @@
           <p v-if="!$v.email.email">Please provide a valid email address.</p>
           <!-- will be displayed if it's empty and required -->
           <p v-if="!$v.email.required">This field should not be empty.</p>
-<!-- to take a look what $v contains <div>{{ $v }}</div> -->
+        <!-- to take a look what $v contains <div>{{ $v }}</div> -->
         </div>
-        <div class="input">
+        <div class="input" :class="{invalid: $v.age.$error}">
           <label for="age">Your Age</label>
           <input
               id="age"
+              @blur="$v.age.$touch()"
               type="number"
               v-model.number="age">
+          <!-- params contains all properties and their values of validation object. Each object has his own structure. -->
+          <p v-if="!$v.age.minVal">You have to be at least {{ $v.age.$params.minVal.min }} age old.</p>
         </div>
-        <div class="input">
+        <div class="input" :class="{invalid: $v.password.$error}">
           <label for="password">Password</label>
           <input
               id="password"
               type="password"
+              @blur="$v.password.$touch()"
               v-model="password">
         </div>
-        <div class="input">
+        <div class="input" :class="{invalid: $v.confirmPassword.$error}">
           <label for="confirm-password">Confirm Password</label>
           <input
               id="confirm-password"
               type="password"
+              @blur="$v.confirmPassword.$touch()"
               v-model="confirmPassword">
         </div>
         <div class="input">
@@ -85,7 +90,7 @@
 
 <script>
   // built-in validators: https://vuelidate.netlify.com/#sub-builtin-validators
-  import { required, email } from 'vuelidate/lib/validators';
+  import { required, email, numeric, minValue, minLength, sameAs } from 'vuelidate/lib/validators';
 
   export default {
     data() {
@@ -107,6 +112,21 @@
         // is a js object with configuration. we added 2 validators to email field.
         required, // required: required
         email,
+      },
+      age: {
+        required,
+        numeric,
+        minVal: minValue(18) // age is higher than XX. minVal name is up to us.
+      },
+      password: {
+        required,
+        minLen: minLength(6)
+      },
+      // same fields data for 2 fields:
+      confirmPassword: {
+        sameAs: sameAs('password') // make sure you type the name exactly the same with property name from data().
+        //sameAs((vueInstance) => { retun vueInstance.password === vueInstance.confirmPassword; })  - second option.
+        //sameAs((vueInstance) => { retun vueInstance.password + 'b' })  - You could do whatever you want inside function
       }
     },
     methods: {
