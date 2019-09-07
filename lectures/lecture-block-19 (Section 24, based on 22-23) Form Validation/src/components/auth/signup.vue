@@ -76,8 +76,14 @@
             </div>
           </div>
         </div>
-        <div class="input inline">
-          <input id="terms" type="checkbox" v-model="terms">
+        <!-- custom validation "terms". Pay attention on $invalid instead of $error -->
+        <div class="input inline" :class="{invalid: $v.terms.$invalid}">
+          <input
+              id="terms"
+              type="checkbox"
+              @change="$v.terms.$touch()"
+              v-model="terms"
+          >
           <label for="terms">Accept Terms of Use</label>
         </div>
         <div class="submit">
@@ -90,7 +96,15 @@
 
 <script>
   // built-in validators: https://vuelidate.netlify.com/#sub-builtin-validators
-  import { required, email, numeric, minValue, minLength, sameAs } from 'vuelidate/lib/validators';
+  import {
+    required,
+    email,
+    numeric,
+    minValue,
+    minLength,
+    sameAs,
+    requiredUnless,
+  } from 'vuelidate/lib/validators';
 
   export default {
     data() {
@@ -125,8 +139,15 @@
       // same fields data for 2 fields:
       confirmPassword: {
         sameAs: sameAs('password') // make sure you type the name exactly the same with property name from data().
-        //sameAs((vueInstance) => { retun vueInstance.password === vueInstance.confirmPassword; })  - second option.
-        //sameAs((vueInstance) => { retun vueInstance.password + 'b' })  - You could do whatever you want inside function
+        // sameAs((vueInstance) => { return vueInstance.password === vueInstance.confirmPassword; })  - second option.
+        // sameAs((vueInstance) => { return vueInstance.password + 'b' })  - You could do whatever you want inside function
+      },
+      // custom validation: terms checkbox is valid if selected country is not Germany.
+      terms: {
+        required: requiredUnless((vueInstance) => {
+          // return true // will always be valid.
+          return vueInstance.country !== 'Germany';
+        })
       }
     },
     methods: {
