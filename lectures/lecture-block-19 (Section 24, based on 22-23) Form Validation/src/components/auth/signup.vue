@@ -2,12 +2,27 @@
   <div id="signup">
     <div class="signup-form">
       <form @submit.prevent="onSubmit">
-        <div class="input">
+        <div class="input" :class="{invalid: $v.email.$error}">
           <label for="email">Mail</label>
+          <!-- $v exposed from vuelidate package. reserved name like $event.
+            using "." we could access to its fields in validations.
+            that's why we want to use $v.email. (take a look on validations in vue component below).
+
+            "$touch()" - is a method which automatically exposes by vuelidate package (to connect default behavior with vuelidate).
+            @input="$v.email.$touch()" - on any changes
+            @blur="$v.email.$touch()" - on leave from input
+            
+           -->
           <input
               id="email"
+              @blur="$v.email.$touch()"
               type="email"
               v-model="email">
+          <!-- will be displayed when field is not empty AND incorrect -->
+          <p v-if="!$v.email.email">Please provide a valid email address.</p>
+          <!-- will be displayed if it's empty and required -->
+          <p v-if="!$v.email.required">This field should not be empty.</p>
+<!-- to take a look what $v contains <div>{{ $v }}</div> -->
         </div>
         <div class="input">
           <label for="age">Your Age</label>
@@ -69,6 +84,9 @@
 </template>
 
 <script>
+  // built-in validators: https://vuelidate.netlify.com/#sub-builtin-validators
+  import { required, email } from 'vuelidate/lib/validators';
+
   export default {
     data() {
       return {
@@ -79,6 +97,16 @@
         country: 'usa',
         hobbyInputs: [],
         terms: false
+      }
+    },
+    validations: {
+      // vuelidate requires that your validation has the same names with fields which they validate
+      // if you field named email - validation has to have the same name. Pay attention on field's Id: "email".
+      // but also we have to connect them to fields adding @input event to fields.
+      email: {
+        // is a js object with configuration. we added 2 validators to email field.
+        required, // required: required
+        email,
       }
     },
     methods: {
@@ -149,6 +177,15 @@
     outline: none;
     border: 1px solid #521751;
     background-color: #eee;
+  }
+
+  .input.invalid input {
+    border: 1px solid red;
+    background-color: #ffaf4f;
+  }
+
+  .input.invalid label {
+    color: red;
   }
 
   .input select {

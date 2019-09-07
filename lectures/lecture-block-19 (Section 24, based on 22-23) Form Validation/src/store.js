@@ -1,12 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// instead of using the global axios we will use dedicated axios instance
-// uses in auth methods
 import axiosInstance from './axios-auth (axios-instance)';
 import axios from 'axios';
 
-// we could import here a router and use it
 import router from './router';
 
 Vue.use(Vuex);
@@ -46,11 +43,6 @@ export default new Vuex.Store({
 
     // pay attention on dispatch method here. This is how we could call one method from another.
     signUp({ commit, dispatch }, userData) {
-      // proper url to firebase auth server (email + password authentication).
-      // key comes from firebase configuration:
-      // https://console.firebase.google.com/u/0/project/vuejs-auth-978c4/settings/general/
-      // info about auth methods in firebase could be found here:
-      // https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
       const authData = { email: userData.email, password: userData.password, returnSecureToken: true };
 
       axiosInstance.post('/accounts:signUp?key=AIzaSyCOMzxMfs0gbqbsG6lq5BBawxrvaq457HI', authData)
@@ -107,7 +99,7 @@ export default new Vuex.Store({
 
       if(now >= expirationDate) {
         // token is expired
-        return
+        return;
       }
 
       // if token still valid - login
