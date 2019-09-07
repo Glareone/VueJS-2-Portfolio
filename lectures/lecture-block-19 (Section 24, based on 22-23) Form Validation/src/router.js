@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 import WelcomePage from './components/welcome/welcome.vue';
 import DashboardPage from './components/dashboard/dashboard.vue';
-import SignupPage from './components/auth/signup.vue';
+import SignupPage from './components/auth/signup(With-validation).vue';
 import SigninPage from './components/auth/signin.vue';
 
 Vue.use(VueRouter);

@@ -21,7 +21,7 @@
           <!-- will be displayed when field is not empty AND incorrect -->
           <p v-if="!$v.email.email">Please provide a valid email address.</p>
           <!-- will be displayed if it's empty and required -->
-          <p v-if="!$v.email.required">This field should not be empty.</p>
+          <p v-if="$v.email.$dirty && !$v.email.required">This field should not be empty.</p>
         <!-- to take a look what $v contains <div>{{ $v }}</div> -->
         </div>
         <div class="input" :class="{invalid: $v.age.$error}">
@@ -118,6 +118,8 @@
     requiredUnless,
   } from 'vuelidate/lib/validators';
 
+  import axios from 'axios';
+
   export default {
     data() {
       return {
@@ -139,6 +141,20 @@
         // is a js object with configuration. we added 2 validators to email field.
         required, // required: required
         email,
+        // PAY ATTENTION: CUSTOM SYNC \ ASYNC VALIDATION.
+        unique: (value) => {
+          if (value === '') {
+            // we don't care about empty input. Rule will pass.
+            return true;
+          }
+          // return value !== 'test@test.com' - sync example. Password shouldn't be a 'test@test.com'
+          return axios.get(`/users.json?orderBy="email"&equalTo="${value}"`)
+            .then(res => {
+              console.log(res);
+              // if firebase returns empty objects - it means that this email is available.
+              return Object.keys(res.data).length === 0;
+            });
+        }
       },
       age: {
         required,
