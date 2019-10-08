@@ -8,10 +8,10 @@
         <br>
         <br>
         <!--
-          Transition is a special component which we could use to animate element appearance and removal from the DOM.
+          Transition is a special component which we could use to animate an element appearance and removal from the DOM.
           You can animate only one element with transition element.
 
-          For group elements like list we have to use transition-list.
+          For element group like list we have to use transition-list block.
          -->
 
         <!--
@@ -37,11 +37,11 @@
 
         <!--
         PAY ATTENTION on type here and styles for this transition element.
-        Different time for animate and transition.
-        With such different we will see ugly behavior, like jump at the end of animation
-        It is because Css don't know which time it must bases on.
+        Different time for animation and transition.
+        With such difference we will see ugly behavior, like jump at the end of animation
+        It is just because CSS doesn't know which time it must bases on.
 
-        That's why we need to use type on transition element. It means which time we would like to use like a major one.
+        That's why we need to use "type" on transition element. It means which time we have to use like a major one.
 
         animation means that when animation is finished - we shouldn't wait when transition will finish up. (element will be hidden after .5s).
         transition means the same thing.
@@ -92,8 +92,8 @@
 
         <!--
           Transition between multiple elements.
-          Pay attention on key. it is required parameter here.
-          Only one element should be diplayed (IN DOM) at time. v-show doesn't work. only v-if.
+          Pay attention on key. it is a required parameter here.
+          Only one element should be diplayed (IN DOM) at once. v-show doesn't work. only v-if.
           also pay attention on mode. 2 options:
               out-in and in-out. out-in - let the old leave first.
               in-out - let the new one be added to DOM first.
@@ -113,9 +113,9 @@
         <!--
           hooks for JS animation. You also could use it with css animation which we used previously.
 
-          if we don't specify :css="false" here - it still tries to find v-enter, v-enter-active and so on
+          if we didn't specify :css="false" here - it still tries to find v-enter, v-enter-active and so on
           (because name is not declared here, it is default)
-          To escape this we have to specify :css="false" here without trying to find and attaching any css classes to it.
+          To escape this we have to specify :css="false" here prevent trying to find and attach any css classes to it.
         -->
         <transition
             @before-enter="beforeEnter"
@@ -150,9 +150,9 @@
         <!-- One important difference from transition.
           <transition> is not rendered in a DOM!
           <transition-group> does render a new HTML tag!
-          by default, it will be span. but you can overwhite this setting by <transition-group tag="div"> (div for example).
+          by default, it will be a span. But you can overwhite this setting by using tag: <transition-group tag="div"> (div for example).
 
-          key is required parameter. we use number because for this example number is unique identifier.
+          key is a required parameter. We use number because for this example number is unique identifier.
         -->
         <ul class="list-group">
           <!-- slide here is for css animation slide-enter and so on. -->
@@ -199,8 +199,8 @@
         element.style.width = `${ this.elementWidth }px`;
       },
       enter(element, done) { // done if a functions which could be executed
-        // done will be executed when animation finishes. if we also use css animation - it will use time from css animation.
-        // you could call done to tell your app when animation is finished. But you shouldn't use it if you use css animation.
+        // done will be executed when animation finishes. if we also use css animation - it will use a timeline from css animation.
+        // you could call "done" to tell your app when animation is finished. But you shouldn't use it if you use css animation.
         // css can determine when your animation is finished instead of pure js animation
         console.log('enter');
 
